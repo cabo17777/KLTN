@@ -1,0 +1,300 @@
+{
+  "home": "Trang chủ",
+  "shop": "Cửa hàng",
+  "about": "Giới thiệu",
+  "contact": "Liên hệ",
+  "orders": "Đơn hàng",
+  "user": "Người dùng",
+  "search_placeholder": "Tìm kiếm sản phẩm...",
+  "search_loading": "Đang tìm kiếm...",
+  "search_no_results": "Không tìm thấy kết quả",
+  "search_no_products": "Không có sản phẩm nào phù hợp",
+  "search_try_again": "Hãy thử điều chỉnh từ khóa tìm kiếm",
+  "search_products_singular": "sản phẩm",
+  "search_products_plural": "sản phẩm",
+  "search_found": "tìm thấy",
+
+  "banner": {
+    "nike": {
+      "title": "Nike Vapor 16 Elite",
+      "subtitle": "Giày bóng đá hiệu suất cao",
+      "description": "Chiếm lĩnh sân cỏ với tốc độ, chính xác và thoải mái tối đa. Sở hữu ngay Nike Vapor 16 Elite!",
+      "discount": "Giảm đến 30%",
+      "sale": "Còn hàng có hạn"
+    },
+    "adidas": {
+      "title": "Adidas Messi",
+      "subtitle": "Giày đá bóng đỉnh cao",
+      "description": "Trải nghiệm tốc độ, kiểm soát và thoải mái tuyệt đối trên sân cỏ với Adidas Messi.",
+      "discount": "Giảm đến 20%",
+      "sale": "Ưu đãi đặc biệt"
+    },
+    "mizuno": {
+      "title": "Mizuno",
+      "subtitle": "Giày bóng đá hiệu suất cao",
+      "description": "Cảm nhận sự thoải mái, kiểm soát tuyệt đối và tốc độ trên sân với Mizuno – lựa chọn cho những cầu thủ chuyên nghiệp.",
+      "discount": "Miễn phí vận chuyển",
+      "sale": "Ưu đãi cuối tuần"
+    },
+    "button": {
+      "buyNow": "Mua Ngay"
+    }
+  },
+  "newArrivals": {
+    "title": "Hàng Mới Về",
+    "empty": "Hiện chưa có sản phẩm mới."
+  },
+  "bestsellers": {
+    "title": "Sản Phẩm Bán Chạy",
+    "empty": "Hiện chưa có sản phẩm bán chạy."
+  },
+  "productOfTheYear": {
+    "title": "Adidas F50",
+    "description": "Trải nghiệm tốc độ, kiểm soát và thoải mái tối đa trên sân cỏ với Adidas F50 – sự lựa chọn của các cầu thủ chuyên nghiệp.",
+    "button": "Mua ngay"
+  },
+  "specialOffers": {
+    "title": "Ưu đãi đặc biệt",
+    "emtry": "Hiện chưa có sản phẩm ưu đãi đặc biệt."
+  },
+  "services": {
+    "freeDelivery": {
+      "title": "Giao hàng miễn phí",
+      "subtitle": "Miễn phí vận chuyển cho đơn từ 1.200.000đ",
+      "description": "Tận hưởng giao hàng tiêu chuẩn miễn phí cho đơn hàng từ 1.200.000đ. Chúng tôi hợp tác với các đơn vị vận chuyển uy tín để đảm bảo sản phẩm đến tay bạn an toàn và đúng hẹn.",
+      "features": [
+        "Miễn phí cho đơn từ 1.200.000đ",
+        "Giao hàng tiêu chuẩn: 3-5 ngày",
+        "Có hỗ trợ giao nhanh",
+        "Theo dõi đơn hàng trực tuyến",
+        "Đóng gói an toàn"
+      ]
+    },
+    "easyReturns": {
+      "title": "Đổi trả dễ dàng",
+      "subtitle": "Đảm bảo 30 ngày",
+      "description": "Không hài lòng với sản phẩm? Không sao! Chính sách đổi trả linh hoạt cho phép bạn trả lại hàng trong vòng 30 ngày kể từ ngày mua.",
+      "features": [
+        "Thời gian đổi trả: 30 ngày",
+        "Hoàn tiền 100%",
+        "Miễn phí phí vận chuyển đổi trả",
+        "Quy trình online đơn giản",
+        "Không phí bổ sung"
+      ]
+    },
+    "support": {
+      "title": "Hỗ trợ 24/7",
+      "subtitle": "Tư vấn chuyên nghiệp bất cứ lúc nào",
+      "description": "Đội ngũ CSKH luôn sẵn sàng 24/7 để hỗ trợ bạn với mọi thắc mắc và vấn đề.",
+      "features": [
+        "Luôn có mặt 24/7",
+        "Hỗ trợ chat trực tuyến",
+        "Hỗ trợ qua email & điện thoại",
+        "Tư vấn sản phẩm chuyên sâu",
+        "Theo dõi đơn hàng"
+      ]
+    },
+    "securePayment": {
+      "title": "Thanh toán an toàn",
+      "subtitle": "Giao dịch bảo mật 100%",
+      "description": "Mua sắm an toàn với các biện pháp bảo mật hàng đầu và công nghệ mã hóa tiên tiến.",
+      "features": [
+        "Mã hóa SSL",
+        "Nhiều hình thức thanh toán",
+        "Chống gian lận",
+        "Tuân thủ PCI DSS",
+        "Quy trình thanh toán an toàn"
+      ]
+    }
+  },
+  "footer": {
+    "brandDescription": "Khám phá những sản phẩm chất lượng cao cấp với dịch vụ vượt trội. Điểm đến mua sắm đáng tin cậy của bạn cho những nhu cầu thiết yếu của cuộc sống hiện đại.",
+    "quickLinks": {
+      "title": "Liên kết nhanh",
+      "about": "Về chúng tôi",
+      "shop": "Cửa hàng",
+      "contact": "Liên hệ",
+      "faq": "Câu hỏi thường gặp"
+    },
+    "categories": {
+      "title": "Danh mục",
+      "nike": "Nike",
+      "adidas": "Adidas",
+      "mizuno": "Mizuno",
+      "puma": "Puma"
+    },
+    "newsletter": {
+      "title": "Luôn được cập nhật",
+      "description": "Đăng ký để nhận thông tin về sản phẩm mới và các ưu đãi độc quyền.",
+      "success": "Đăng ký thành công!",
+      "placeholder": "Nhập email của bạn",
+      "subscribe": "Đăng ký"
+    },
+    "copyright": "Mọi quyền được bảo lưu.",
+    "payment": "Chúng tôi chấp nhận:",
+    "privacy": "Chính sách bảo mật",
+    "terms": "Điều khoản dịch vụ"
+  },
+  "signin": {
+    "welcome": "Chào mừng trở lại",
+    "signinMessage": "Đăng nhập để tiếp tục mua sắm",
+    "email": "Địa chỉ Email",
+    "enterEmail": "Nhập email của bạn",
+    "password": "Mật khẩu",
+    "enterPassword": "Nhập mật khẩu của bạn",
+    "forgotPassword": "Quên mật khẩu?",
+    "signIn": "Đăng nhập",
+    "signingIn": "Đang đăng nhập...",
+    "dontHaveAccount": "Chưa có tài khoản?",
+    "createAccount": "Tạo tài khoản mới"
+  },
+  "signup": {
+    "createAccount": "Tạo tài khoản",
+    "joinMessage": "Tham gia HL_Sports  và bắt đầu hành trình của bạn",
+    "fullName": "Họ và tên",
+    "enterFullName": "Nhập họ và tên của bạn",
+    "email": "Địa chỉ Email",
+    "enterEmail": "Nhập email của bạn",
+    "password": "Mật khẩu",
+    "createPassword": "Tạo mật khẩu mạnh",
+    "accountType": "Loại tài khoản",
+    "accountTypeDesc": "Tất cả tài khoản mới được tạo là tài khoản người dùng",
+    "termsAgreement": "Tôi đồng ý với",
+    "termsOfService": "Điều khoản dịch vụ",
+    "privacyPolicy": "Chính sách bảo mật",
+    "creatingAccount": "Đang tạo tài khoản...",
+    "alreadyHaveAccount": "Đã có tài khoản?",
+    "signIn": "Đăng nhập vào tài khoản của bạn"
+  },
+  "Cart": {
+    "Shopping": "Giỏ Hàng",
+    "Home": "Trang Chủ",
+    "Cart": "Giỏ Hàng",
+    "discount": "Giảm giá",
+    "product": "Sản Phẩm",
+    "quantity": "Số Lượng",
+    "price": "Giá",
+    "total": "Tổng Cộng",
+    "Subtotal": "Tạm Tính",
+    "Delivery": "Địa Chỉ Giao Hàng",
+    "Addd": "Thêm Mới",
+    "No": "Không tìm thấy địa chỉ giao hàng",
+    "Add": "Thêm địa chỉ đầu tiên của bạn",
+    "Order": "Tổng Đơn Hàng",
+    " Subtotal": "Tạm Tính",
+    "items": "sản phẩm",
+    "Shipping": "Phí Vận Chuyển",
+    "Free": "Miễn Phí",
+    "Total": "Tổng Cộng",
+    "Placing": "Đang Đặt Hàng...",
+    "Placeding": "Phí vận chuyển và thuế sẽ được tính khi thanh toán",
+    "Place": "Đặt Hàng",
+    "CartActions": "Hành Động Giỏ Hàng",
+    "ClearCart": "Xóa Giỏ Hàng",
+    "ContinueShopping": "Tiếp Tục Mua Sắm",
+    "Defaultt": "Mặc Định",
+    "Selectedd": "Đã Chọn",
+    "Phonee": "Số Điện Thoại",
+    "Homee": "Nhà",
+    "Work": "Công Ty",
+    "Hometown": "Quê Nhà"
+  },
+  "Shop": {
+    "Title": "Cửa hàng",
+    "Home": "Trang chủ",
+    "Filters": "Bộ lọc",
+    "Showing": "Hiển thị",
+    "OfResults": "kết quả",
+    "Show": "Hiển thị:",
+    "SortBy": "Sắp xếp:",
+    "Newest": "Mới nhất",
+    "PriceLowHigh": "Giá: Thấp - Cao",
+    "PriceHighLow": "Giá: Cao - Thấp",
+    "NameAToZ": "Tên: A đến Z",
+    "GridView": "Chế độ lưới",
+    "ListView": "Chế độ danh sách",
+    "ActiveFilters": "Bộ lọc đang áp dụng:",
+    "Category": "Danh mục",
+    "Brand": "Thương hiệu",
+    "Search": "Tìm kiếm",
+    "BrandBrand": "Phạm vi giá ",
+    "minPrice": "Giá Thấp Nhất",
+    "Quick": "Bộ lọc nhanh:",
+    "ApplyPriceFilter": "Áp dụng Bộ Lọc Giá",
+    "maxPrice": "Giá Cao Nhất",
+    "SearchProduct": "Tìm kiếm sản phẩm",
+    "ClearAll": "Xóa tất cả",
+    "Loading": "Đang tải...",
+    "Rating": "Đánh giá của khách hàng",
+    "ClearFilters": "Xóa bỏ tất cả bộ lọc",
+    "under50": "Dưới 1,2 triệu",
+    "50to100": "1,2 - 2,4 triệu",
+    "100to200": "2,4 - 4,8 triệu",
+    "over200": "Trên 4,8 triệu"
+  },
+  "Orders": {
+    "Order": "Đặt hàng",
+    "Hom": "Trang chủ",
+    "found": "được tìm thấy",
+    "Refresh": "Làm mới"
+  },
+  "OrderConfirmation": {
+    "Title": "Xác nhận đơn hàng",
+    "OrderID": "Mã đơn hàng: #",
+    "OrderStatus": "Trạng thái đơn hàng",
+    "Payment": "Thanh toán",
+    "OrderItems": "Sản phẩm trong đơn",
+    "PlacedOn": "Đặt trên",
+    "Q": "Số lượng",
+    "Total": "Tổng cộng",
+    "Subtt": "Tổng tạm tính",
+    "items": "sản phẩm",
+    "ship": "Vận chuyển",
+    "free": "Miễn phí",
+    "tal": "Tổng cộng",
+    "choose": "Chọn phương thức thanh toán",
+    "cash": "Thanh toán khi nhận hàng",
+    "pay": "Trả tiền khi đơn hàng được giao",
+    "payOnline": "Thanh toán online ngay",
+    "paycard": "Thanh toán bằng thẻ",
+    "DeliveryAddress": "Địa chỉ giao hàng",
+    "PaymentTitle": "Thanh toán",
+    "ChoosePaymentMethod": "Chọn phương thức thanh toán",
+    "CashOnDelivery": "Thanh toán khi nhận hàng",
+    "PayOnDelivery": "Trả tiền khi đơn hàng được giao",
+    "PayOnlineNow": "Thanh toán online ngay",
+    "PaymentDetails": "Chi tiết thanh toán",
+    "PaymentCompleted": "Thanh toán thành công",
+    "PaymentSuccess": "Thanh toán của bạn đã được xử lý thành công",
+    "ViewAllOrders": "Xem tất cả đơn hàng"
+  },
+  "paymentForm": {
+    "cardInformation": "Thông tin thẻ",
+    "cardNumber": "SỐ THẺ",
+    "cardHolder": "CHỦ THẺ",
+    "validThru": "HẠN SỬ DỤNG",
+    "yourName": "TÊN CỦA BẠN",
+    "mmYY": "MM/YY",
+    "amountToPay": "Số tiền cần thanh toán",
+    "secureInfo": "Thông tin thanh toán của bạn được bảo mật và mã hóa",
+    "processing": "Đang xử lý...",
+    "pay": "Thanh toán",
+    "cancel": "Hủy",
+    "visa": "Visa",
+    "mastercard": "Mastercard",
+    "amex": "American Express",
+    "paywithCard": "Thanh toán với"
+  },
+
+  "relatedProductsSection": {
+    "title": "Sản phẩm liên quan",
+    "loadingMessage": "Đang tải sản phẩm liên quan...",
+    "noProductsMessage": "Không tìm thấy sản phẩm liên quan.",
+    "addToCartButton": "Thêm vào giỏ",
+    "discountLabel": "% giảm",
+    "currency": "VND"
+  },
+  "Addtocabutton": {
+    "button": "Thêm vào giỏ"
+  }
+}

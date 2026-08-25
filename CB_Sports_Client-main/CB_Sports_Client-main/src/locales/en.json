@@ -1,0 +1,301 @@
+{
+  "home": "Home",
+  "shop": "Shop",
+  "about": "About",
+  "contact": "Contact",
+  "orders": "Orders",
+  "user": "USER HOA",
+
+  "search_placeholder": "Search products...",
+  "search_loading": "Searching...",
+  "search_no_results": "No results found",
+  "search_no_products": "No products match",
+  "search_try_again": "Try adjusting your search terms",
+  "search_products_singular": "product",
+  "search_products_plural": "products",
+  "search_found": "found",
+
+  "banner": {
+    "nike": {
+      "title": "Nike Vapor 16 Elite",
+      "subtitle": "High-performance football boots",
+      "description": "Dominate the pitch with speed, precision and maximum comfort. Get your Nike Vapor 16 Elite now!",
+      "discount": "Up to 30% Off",
+      "sale": "Limited stock"
+    },
+    "adidas": {
+      "title": "Adidas Messi",
+      "subtitle": "Elite football boots",
+      "description": "Experience ultimate speed, control and comfort on the pitch with Adidas Messi.",
+      "discount": "Up to 20% Off",
+      "sale": "Special offer"
+    },
+    "mizuno": {
+      "title": "Mizuno",
+      "subtitle": "High-performance football boots",
+      "description": "Feel comfort, total control, and speed with Mizuno – the choice of professionals.",
+      "discount": "Free Shipping",
+      "sale": "Weekend deal"
+    },
+    "button": {
+      "buyNow": "Shop Now"
+    }
+  },
+  "newArrivals": {
+    "title": "New Arrivals",
+    "empty": "No new arrivals available at the moment."
+  },
+  "bestsellers": {
+    "title": "Our Bestsellers",
+    "empty": "No bestselling products available at the moment."
+  },
+  "productOfTheYear": {
+    "title": "Adidas F50",
+    "description": "Experience speed, control, and maximum comfort on the pitch with Adidas F50 – the choice of professionals.",
+    "button": "Shop Now"
+  },
+  "specialOffers": {
+    "title": "Special Offers",
+    "emtry": "No special offers available at the moment."
+  },
+  "services": {
+    "freeDelivery": {
+      "title": "Free Delivery",
+      "subtitle": "Free shipping on all orders over $50",
+      "description": "Enjoy free standard shipping on all orders over $50. We partner with reliable courier services to ensure your products reach you safely and on time.",
+      "features": [
+        "Free shipping on orders $50+",
+        "Standard delivery: 3-5 business days",
+        "Express delivery available",
+        "Real-time tracking",
+        "Secure packaging"
+      ]
+    },
+    "easyReturns": {
+      "title": "Easy Returns",
+      "subtitle": "30-day return guarantee",
+      "description": "Not satisfied with your purchase? No problem! Our hassle-free return policy allows you to return any item within 30 days of purchase.",
+      "features": [
+        "30-day return window",
+        "Full refund guarantee",
+        "Free return shipping",
+        "Easy online return process",
+        "No restocking fees"
+      ]
+    },
+    "support": {
+      "title": "24/7 Support",
+      "subtitle": "Expert support anytime",
+      "description": "Our dedicated customer support team is available 24/7 to assist you with any questions, concerns, or issues you may have.",
+      "features": [
+        "Round-the-clock availability",
+        "Live chat support",
+        "Email and phone support",
+        "Expert product guidance",
+        "Order tracking assistance"
+      ]
+    },
+    "securePayment": {
+      "title": "Secure Payment",
+      "subtitle": "100% secure transactions",
+      "description": "Shop with confidence knowing that all your transactions are protected by industry-leading security measures and encryption technology.",
+      "features": [
+        "SSL encryption",
+        "Multiple payment options",
+        "Fraud protection",
+        "PCI DSS compliance",
+        "Secure checkout process"
+      ]
+    }
+  },
+
+  "footer": {
+    "brandDescription": "Discover premium quality products with exceptional service. Your trusted shopping destination for the essentials of modern life.",
+    "quickLinks": {
+      "title": "Quick Links",
+      "about": "About Us",
+      "shop": "Shop",
+      "contact": "Contact",
+      "faq": "FAQ"
+    },
+    "categories": {
+      "title": "Categories",
+      "nike": "Nike",
+      "adidas": "Adidas",
+      "mizuno": "Mizuno",
+      "puma": "Puma"
+    },
+    "newsletter": {
+      "title": "Stay Updated",
+      "description": "Subscribe to get updates on new products...",
+      "success": "Successfully subscribed!",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    },
+    "copyright": "All rights reserved.",
+    "payment": "We accept:",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "signin": {
+    "welcome": "Welcome Back",
+    "signinMessage": "Sign in to your account to continue shopping",
+    "email": "Email Address",
+    "enterEmail": "Enter your email",
+    "password": "Password",
+    "enterPassword": "Enter your password",
+    "forgotPassword": "Forgot your password?",
+    "signIn": "Sign In",
+    "signingIn": "Signing In...",
+    "dontHaveAccount": "Don't have an account?",
+    "createAccount": "Create new account"
+  },
+  "signup": {
+    "createAccount": "Create Account",
+    "joinMessage": "HL_Sports Shopping and start your journey",
+    "fullName": "Full Name",
+    "enterFullName": "Enter your full name",
+    "email": "Email Address",
+    "enterEmail": "Enter your email",
+    "password": "Password",
+    "createPassword": "Create a strong password",
+    "accountType": "Account Type",
+    "accountTypeDesc": "All new registrations are created as user accounts",
+    "termsAgreement": "I agree to the",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "creatingAccount": "Creating Account...",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign in to your account"
+  },
+  "Cart": {
+    "Shopping": "Shopping Cart",
+    "Home": "Home",
+    "Cart": "Cart",
+    "product": "Product",
+    "quantity": "Quantity",
+    "price": "Price",
+    "total": "Total",
+    "Subtotal": "Subtotal",
+    "Delivery": "Delivery Address",
+    "Addd": "Add New",
+    "No": "No delivery address found",
+    "Add": " Add your first address",
+    "Order": "Order Summary",
+    "discount": "Giảm giá",
+    "items": "items",
+    "Shipping": "Shipping",
+    "Free": "Free",
+    "Total": "Total",
+    "Placing": "Placing Order...",
+    "Placeding": "Shipping and taxes calculated at checkout",
+    "Place": "Place Order",
+    "CartActions": "Cart Actions",
+    "ClearCart": "Clear Cart",
+    "ContinueShopping": "Continue Shopping",
+    "Defaultt": "Default",
+    "Selectedd": "Selected",
+    "Phonee": "Phone Number",
+    "Homee": "Home",
+    "Work": "Work",
+    "Hometown": " Hometown"
+  },
+  "Shop": {
+    "Title": "Shop",
+    "Home": "Home",
+    "Filters": "Filters",
+    "Showing": "Showing",
+    "OfResults": "results",
+    "Show": "Show:",
+    "SortBy": "Sort by:",
+    "Newest": "Newest",
+    "PriceLowHigh": "Price: Low - High",
+    "PriceHighLow": "Price: High - Low",
+    "NameAToZ": "Name: A to Z",
+    "GridView": "Grid view",
+    "ListView": "List view",
+    "ActiveFilters": "Active filters:",
+    "Category": "Category",
+    "BrandBrand": "Price Range ",
+    "minPrice": "Min Price",
+    "maxPrice": "Max Price",
+    "ApplyPriceFilter": "Apply Price Filter",
+    "Quick": "Quick Filters:",
+    "Brand": "Brand",
+    "Search": "Search",
+    "SearchProduct": "Search Products",
+    "ClearAll": "Clear all",
+    "Loading": "Loading...",
+    "Customer": "Customer Rating",
+    "ClearFilters": "Clear All Filters",
+    "under50": "Under $50",
+    "50to100": "$50-$100",
+    "100to200": "$100-$200",
+    "over200": "Over $200"
+  },
+  "Orders": {
+    "Order": "Order",
+    "Hom": "Home",
+    "found": "found",
+    "Refresh": "Refresh"
+  },
+  "OrderConfirmation": {
+    "Title": "Order Confirmation",
+    "OrderID": "Order ID: #",
+    "OrderStatus": "Order Status",
+    "Payment": "Payment",
+    "PlacedOn": "Placed on",
+    "OrderItems": "Order Items",
+    "Q": "Quantity",
+    "Total": "Total",
+    "DeliveryAddress": "Delivery Address",
+    "PaymentTitle": "Payment",
+    "Subtt": "Subtotal",
+    "items": "items",
+    "ship": "Shipping",
+    "free": "Free",
+    "tal": "Total",
+    "choose": "Choose Payment Method",
+    "Cash": "Cash on Delivery",
+    "payOnline": "Pay Online Now",
+    "paycard": "Pay with Card",
+    "Pay": "Pay when your order is delivered",
+    "ChoosePaymentMethod": "Choose Payment Method",
+    "CashOnDelivery": "Cash on Delivery",
+    "PayOnDelivery": "Pay when your order is delivered",
+    "PayOnlineNow": "Pay Online Now",
+    "PaymentDetails": "Payment Details",
+    "PaymentCompleted": "Payment Completed",
+    "PaymentSuccess": "Your payment has been processed successfully",
+    "ViewAllOrders": "View All Orders"
+  },
+  "paymentForm": {
+    "cardInformation": "Card Information",
+    "cardNumber": "CARD NUMBER",
+    "cardHolder": "CARD HOLDER",
+    "validThru": "VALID THRU",
+    "yourName": "YOUR NAME",
+    "mmYY": "MM/YY",
+    "amountToPay": "Amount to pay",
+    "secureInfo": "Your payment information is secure and encrypted",
+    "processing": "Processing...",
+    "pay": "Pay $",
+    "cancel": "Cancel",
+    "visa": "Visa",
+    "mastercard": "Mastercard",
+    "amex": "American Express",
+    "paywithCard": "Pay with Card"
+  },
+
+  "relatedProductsSection": {
+    "title": "Related Products",
+    "loadingMessage": "Loading related products...",
+    "noProductsMessage": "No related products found.",
+    "addToCartButton": "Add to Cart",
+    "discountLabel": "% off",
+    "currency": "VND"
+  },
+  "Addtocabutton": {
+    "button": "Add to cart"
+  }
+}

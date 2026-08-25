@@ -1,0 +1,49 @@
+{
+  "login": {
+    "welcome": "Chào mừng trở lại",
+    "subtitle": "Vui lòng đăng nhập vào tài khoản của bạn",
+    "emailLabel": "Địa chỉ Email",
+    "emailPlaceholder": "Nhập email của bạn",
+    "passwordLabel": "Mật khẩu",
+    "passwordPlaceholder": "Nhập mật khẩu của bạn",
+    "signIn": "Đăng nhập",
+    "signingIn": "Đang đăng nhập...",
+    "noAccount": "Chưa có tài khoản?",
+    "createAccount": "Tạo tài khoản",
+    "secureAccess": "Truy cập an toàn • Được mã hóa bảo mật",
+    "footer": "© 2025 HL_Sports. Đã đăng ký bản quyền.",
+    "loginSuccess": "Đăng nhập thành công!",
+    "loginFailed": "Đăng nhập thất bại"
+  },
+  "register": {
+    "title": "Tạo tài khoản",
+    "subtitle": "Bắt đầu quản lý bảng điều khiển admin",
+    "fullName": "Họ và tên",
+    "email": "Địa chỉ Email",
+    "enterFullName": "Nhập họ và tên của bạn",
+    "fulladdress": "Nhập địa chỉ đầy đủ của bạn",
+    "enterPassword": "Nhập mật khẩu của bạn",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "confirmPasswordPlaceholder": "Xác nhận lại mật khẩu của bạn",
+    "passwordHint": "Mật khẩu phải có ít nhất 8 ký tự",
+    "createAccount": "Tạo tài khoản",
+    "loading": "Đang tạo tài khoản...",
+    "alreadyHaveAccount": "Đã có tài khoản?",
+    "signIn": "Đăng nhập",
+    "by": "Bằng cách tạo tài khoản, bạn đồng ý với Điều khoản Dịch vụ của chúng tôi",
+    "success": "Đăng ký thành công!",
+    "footer": "© 2025 HL_Sports. Tất cả quyền được bảo lưu.",
+    "failed": "Đăng ký thất bại"
+  },
+  "placeholders": {
+    "fullName": "Nhập họ và tên của bạn",
+    "email": "Nhập email của bạn",
+    "password": "Nhập mật khẩu của bạn",
+    "confirmPassword": "Xác nhận lại mật khẩu của bạn"
+  },
+  "errors": {
+    "passwordMismatch": "Mật khẩu không khớp",
+    "passwordTooShort": "Mật khẩu phải có ít nhất 8 ký tự"
+  }
+}

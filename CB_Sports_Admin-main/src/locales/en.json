@@ -1,0 +1,50 @@
+{
+  "login": {
+    "welcome": "Welcome Back",
+    "subtitle": "Please sign in to your account",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "Enter your email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "signIn": "Sign In",
+    "signingIn": "Signing In...",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create Account",
+    "secureAccess": "Secure access • Protected by encryption",
+    "footer": "© 2025 HL_Sports. All rights reserved.",
+    "loginSuccess": "Login successful!",
+    "loginFailed": "Login failed"
+  },
+  "register": {
+    "title": "Create Account",
+    "subtitle": "Join us and start managing your admin panel",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "enterFullName": "Enter your full Name",
+    "fulladdress": "Enter your full address",
+    "confirmPasswordPlaceholder": "Confirm your password",
+
+    "enterPassword": "Enter your password",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "passwordHint": "Password must be at least 8 characters long",
+    "createAccount": "Create Account",
+    "loading": "Creating Account...",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "by": "By creating an account, you agree to our Terms of Service",
+    "success": "Registration successful!",
+    "footer": "© 2025 HL_Sports. All rights reserved.",
+    "failed": "Registration failed"
+  },
+  "placeholders": {
+    "fullName": "Enter your full name",
+    "email": "Enter your email",
+    "password": "Enter your password",
+    "confirmPassword": "Confirm your password"
+  },
+  "errors": {
+    "passwordMismatch": "Passwords do not match",
+    "passwordTooShort": "Password must be at least 8 characters long"
+  }
+}
