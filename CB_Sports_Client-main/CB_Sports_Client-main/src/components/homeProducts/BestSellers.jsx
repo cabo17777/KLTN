@@ -54,8 +54,10 @@ const BestSellers = () => {
       setLoading(true);
       try {
         const data = await getData(endpoint);
-        // Handle the new API response format that includes success field
-        setProducts(data?.products || []);
+        const list = Array.isArray(data?.products)
+          ? data.products
+          : (data?.products ? Object.values(data.products) : []);
+        setProducts(list);
       } catch (error) {
         console.error("Error fetching products:", error);
         setProducts([]);
@@ -115,7 +117,7 @@ const BestSellers = () => {
         </Slider>
       ) : (
         // Use simple grid when 3 or fewer products
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-${products?.length < 4 ? products?.length : 4}`}>
           {products?.map((item) => (
             <ProductCard item={item} key={item?._id} />
           ))}

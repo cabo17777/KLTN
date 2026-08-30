@@ -64,13 +64,17 @@ const List = ({ token }) => {
       const data = response?.data;
 
       if (data?.success) {
-        setList(data?.products);
+        const rawProds = data?.products;
+        const prods = Array.isArray(rawProds)
+          ? rawProds
+          : (typeof rawProds === "object" && rawProds !== null ? Object.values(rawProds) : []);
+        setList(prods);
       } else {
-        toast.error(data?.message);
+        toast.error(data?.message || "Failed to fetch products");
       }
     } catch (error) {
       console.log("Product List fetching error", error?.message);
-      toast.error(error?.message);
+      toast.error(error?.message || "Error fetching product list");
     } finally {
       setLoading(false);
     }
@@ -312,14 +316,31 @@ const List = ({ token }) => {
     }
   };
 
+  const getProductImage = (product) => {
+    let imgUrl = "";
+    if (Array.isArray(product?.images) && product.images[0]) imgUrl = product.images[0];
+    else if (Array.isArray(product?.image) && product.image[0]) imgUrl = product.image[0];
+    else if (typeof product?.image === "string" && product.image) imgUrl = product.image;
+
+    if (!imgUrl || imgUrl.includes("placeholder")) {
+      return "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600";
+    }
+    return imgUrl;
+  };
+
   // Filter products based on search
-  const filteredList = list.filter(
-    (product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (product.brand &&
-        product.brand.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const safeList = Array.isArray(list)
+    ? list
+    : (typeof list === "object" && list !== null ? Object.values(list) : []);
+
+  const filteredList = safeList.filter((product) => {
+    if (!product) return false;
+    const nameStr = String(product.name || "").toLowerCase();
+    const catStr = String(product.category || "").toLowerCase();
+    const brandStr = String(product.brand || "").toLowerCase();
+    const search = String(searchTerm || "").toLowerCase();
+    return nameStr.includes(search) || catStr.includes(search) || brandStr.includes(search);
+  });
 
   return (
     <Container>
@@ -501,8 +522,12 @@ const List = ({ token }) => {
                       <tr key={product._id} className="hover:bg-gray-50">
                         <td className="px-6 py-4">
                           <img
-                            src={product.images[0]}
+                            src={getProductImage(product)}
                             alt={product.name}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600";
+                            }}
                             className="object-cover w-[100px] h-[100px] rounded-lg"
                           />
                         </td>
@@ -579,8 +604,12 @@ const List = ({ token }) => {
                 >
                   <div className="flex items-start gap-4">
                     <img
-                      src={product.images[0]}
+                      src={getProductImage(product)}
                       alt={product.name}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600";
+                      }}
                       className="flex-shrink-0 object-cover w-16 h-16 rounded-lg"
                     />
                     <div className="flex-1 min-w-0">

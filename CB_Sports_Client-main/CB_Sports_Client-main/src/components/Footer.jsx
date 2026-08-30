@@ -184,7 +184,7 @@ const Footer = () => {
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             {/* Copyright */}
             <p className="text-sm text-gray-500">
-              © 2025 HL_Sports. {t("footer.copyright")}
+              © 2025 CB_Sports. {t("footer.copyright")}
             </p>
 
             {/* Payment Methods */}

@@ -55,23 +55,28 @@ const Order = () => {
         },
       });
 
+      if (response.status === 401) {
+        toast.error("Vui lòng đăng nhập để xem danh sách đơn hàng");
+        navigate("/signin");
+        return;
+      }
+
       const data = await response.json();
       if (data.success) {
-        setOrders(data.orders);
-        // Update order count in Redux
-        dispatch(setOrderCount(data.orders.length));
+        setOrders(data.orders || []);
+        dispatch(setOrderCount(data.orders ? data.orders.length : 0));
       } else {
-        setError(data.message || "Failed to fetch orders");
-        toast.error("Failed to load orders");
+        toast.error(data.message || "Vui lòng đăng nhập lại");
+        navigate("/signin");
       }
     } catch (error) {
       console.error("Error fetching orders:", error);
-      setError("Failed to load orders");
-      toast.error("Failed to load orders");
+      toast.error("Vui lòng đăng nhập để xem đơn hàng");
+      navigate("/signin");
     } finally {
       setLoading(false);
     }
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     if (!userInfo) {

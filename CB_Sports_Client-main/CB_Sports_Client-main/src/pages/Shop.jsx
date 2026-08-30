@@ -45,8 +45,11 @@ const Shop = () => {
       setLoading(true);
       try {
         const data = await getData(endpoint);
-        setProducts(data?.products || []);
-        setFilteredProducts(data?.products || []);
+        const list = Array.isArray(data?.products)
+          ? data.products
+          : (data?.products ? Object.values(data.products) : []);
+        setProducts(list);
+        setFilteredProducts(list);
       } catch (error) {
         console.error("Error fetching products:", error);
         setProducts([]);

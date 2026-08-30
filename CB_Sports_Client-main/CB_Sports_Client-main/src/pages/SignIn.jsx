@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { serverUrl } from "../../config";
 import { useDispatch } from "react-redux";
-import { setOrderCount } from "../redux/orebiSlice";
+import { setOrderCount, addUser } from "../redux/orebiSlice";
 import {
   FaEnvelope,
   FaLock,
@@ -92,9 +92,13 @@ const SignIn = () => {
       const data = response?.data;
       if (data?.success) {
         localStorage.setItem("token", data?.token);
+        if (data?.user) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+          dispatch(addUser(data.user));
+        }
         // Fetch order count after successful login
         await fetchUserOrderCount(data?.token);
-        toast.success(data?.message);
+        toast.success(data?.message || "Đăng nhập thành công!");
         navigate("/");
       } else {
         toast.error(data?.message);

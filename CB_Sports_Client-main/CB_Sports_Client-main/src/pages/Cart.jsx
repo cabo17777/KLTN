@@ -151,10 +151,9 @@ const Cart = () => {
   };
 
   const handlePlaceOrder = async () => {
-    console.log("hello");
-
     if (!userInfo) {
-      toast.error("Please login to place an order");
+      toast.error("Vui lòng đăng nhập để thanh toán đơn hàng");
+      window.location.href = "/signin";
       return;
     }
 
@@ -741,7 +740,7 @@ const Cart = () => {
 
                 <button
                   onClick={handlePlaceOrder}
-                  disabled={!userInfo || !selectedAddress || isPlacingOrder}
+                  disabled={isPlacingOrder}
                   className="w-full px-6 py-4 text-lg font-medium text-white transition-colors bg-gray-900 rounded-md hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {!userInfo ? (

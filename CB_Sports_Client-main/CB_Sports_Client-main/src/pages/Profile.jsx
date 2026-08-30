@@ -45,6 +45,7 @@ const Profile = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     dispatch(removeUser());
     dispatch(resetOrderCount());
     toast.success("Logged out successfully");

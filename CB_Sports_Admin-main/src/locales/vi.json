@@ -11,7 +11,7 @@
     "noAccount": "Chưa có tài khoản?",
     "createAccount": "Tạo tài khoản",
     "secureAccess": "Truy cập an toàn • Được mã hóa bảo mật",
-    "footer": "© 2025 HL_Sports. Đã đăng ký bản quyền.",
+    "footer": "© 2025 CB_Sports. Đã đăng ký bản quyền.",
     "loginSuccess": "Đăng nhập thành công!",
     "loginFailed": "Đăng nhập thất bại"
   },
@@ -33,7 +33,7 @@
     "signIn": "Đăng nhập",
     "by": "Bằng cách tạo tài khoản, bạn đồng ý với Điều khoản Dịch vụ của chúng tôi",
     "success": "Đăng ký thành công!",
-    "footer": "© 2025 HL_Sports. Tất cả quyền được bảo lưu.",
+    "footer": "© 2025 CB_Sports. Tất cả quyền được bảo lưu.",
     "failed": "Đăng ký thất bại"
   },
   "placeholders": {

@@ -11,7 +11,7 @@
     "noAccount": "Don't have an account?",
     "createAccount": "Create Account",
     "secureAccess": "Secure access • Protected by encryption",
-    "footer": "© 2025 HL_Sports. All rights reserved.",
+    "footer": "© 2025 CB_Sports. All rights reserved.",
     "loginSuccess": "Login successful!",
     "loginFailed": "Login failed"
   },
@@ -34,7 +34,7 @@
     "signIn": "Sign In",
     "by": "By creating an account, you agree to our Terms of Service",
     "success": "Registration successful!",
-    "footer": "© 2025 HL_Sports. All rights reserved.",
+    "footer": "© 2025 CB_Sports. All rights reserved.",
     "failed": "Registration failed"
   },
   "placeholders": {

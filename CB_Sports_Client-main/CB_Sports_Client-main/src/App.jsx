@@ -31,12 +31,14 @@ function App() {
         });
 
         const data = await response.json();
-        if (data.success) {
+        if (data.success && Array.isArray(data.orders)) {
           dispatch(setOrderCount(data.orders.length));
+        } else {
+          dispatch(resetOrderCount());
         }
       } catch (error) {
         console.error("Error fetching order count:", error);
-        // Don't show error to user as this is not critical
+        dispatch(resetOrderCount());
       }
     },
     [dispatch]
@@ -44,16 +46,29 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        dispatch(addUser(decodedToken));
-        // Fetch order count for authenticated users
-        fetchUserOrderCount(token);
-      } catch (error) {
-        console.error("Invalid token", error);
-        localStorage.removeItem("token");
-        dispatch(resetOrderCount());
+      const storedUser = localStorage.getItem("user");
+      let userData = null;
+      if (storedUser) {
+        try {
+          userData = JSON.parse(storedUser);
+        } catch (e) {
+          console.error("Error parsing stored user:", e);
+        }
       }
+
+      if (!userData) {
+        try {
+          userData = jwtDecode(token);
+        } catch (e) {
+          // If token is not JWT (e.g., Laravel Sanctum), create fallback user info
+          userData = { name: "User", email: "user@cbsports.com" };
+        }
+      }
+
+      if (userData) {
+        dispatch(addUser(userData));
+      }
+      fetchUserOrderCount(token);
     } else {
       dispatch(removeUser());
       dispatch(resetOrderCount());

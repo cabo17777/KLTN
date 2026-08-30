@@ -10,18 +10,25 @@ const currencyMap = {
 
 const PriceFormat = ({ amount, className }) => {
   const { i18n } = useTranslation();
-  const lang = i18n.language || "en";
-
-  const { locale, currency, rate } = currencyMap[lang] || currencyMap.en;
+  const lang = i18n.language || "vi";
 
   // Nếu không có số hoặc NaN thì gán = 0
   const numericAmount =
     typeof amount === "number" && !isNaN(amount) ? amount : 0;
 
-  // Quy đổi theo tỷ giá
-  const displayAmount = numericAmount * rate;
+  // Nếu giá lưu dạng VNĐ (> 10000) hay USD (< 10000)
+  let baseVnd = numericAmount < 10000 ? numericAmount * 25000 : numericAmount;
 
-  // Format số theo locale + currency
+  let displayAmount = baseVnd;
+  let locale = "vi-VN";
+  let currency = "VND";
+
+  if (lang === "en") {
+    displayAmount = baseVnd / 25000;
+    locale = "en-US";
+    currency = "USD";
+  }
+
   const formattedAmount = new Intl.NumberFormat(locale, {
     style: "currency",
     currency,

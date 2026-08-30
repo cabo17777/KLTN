@@ -369,6 +369,10 @@ const Categories = () => {
                           <img
                             src={category.image}
                             alt={category.name}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400";
+                            }}
                             className="w-[100px] h-[100px] object-cover rounded-lg"
                           />
                         </td>
@@ -418,6 +422,10 @@ const Categories = () => {
                     <img
                       src={category.image}
                       alt={category.name}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400";
+                      }}
                       className="flex-shrink-0 object-cover w-16 h-16 rounded-lg"
                     />
                     <div className="flex-1 min-w-0">

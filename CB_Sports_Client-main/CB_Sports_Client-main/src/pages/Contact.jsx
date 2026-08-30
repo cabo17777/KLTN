@@ -3,7 +3,7 @@ const Contact = () => {
     <div className="min-h-screen bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e] flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-5xl p-10 border shadow-2xl backdrop-blur-md bg-white/10 border-white/20 rounded-2xl">
         <h2 className="mb-10 text-4xl font-bold text-center text-white">
-          Liên hệ <span className="">HL_Sports</span>
+          Liên hệ <span className="">CB_Sports</span>
         </h2>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -22,7 +22,7 @@ const Contact = () => {
                 thái, Thành phố Huế
               </p>
               <p>
-                <strong>📧 Email:</strong> support@hlsports.com
+                <strong>📧 Email:</strong> support@cbsports.com
               </p>
               <p>
                 <strong>📞 Điện thoại:</strong> 0123 456 789
@@ -30,8 +30,8 @@ const Contact = () => {
             </div>
             <img
               src="/3.jpg"
-              alt="HL_Sports avatar"
-              className="w-[260px] mb-6 border-4 rounded-full shadow-2xl h-[260px] border-white/40"
+              alt="CB_Sports avatar"
+              className="w-[260px] mb-6 border-4 rounded-full shadow-2xl h-[260px] border-white/40 object-cover object-top"
             />
           </div>
 

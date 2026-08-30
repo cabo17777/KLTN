@@ -386,6 +386,10 @@ const Brands = () => {
                           <img
                             src={brand.image}
                             alt={brand.name}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400";
+                            }}
                             className="w-[100px] h-[100px] object-cover rounded-lg border border-gray-200"
                           />
                         </td>
@@ -452,6 +456,10 @@ const Brands = () => {
                     <img
                       src={brand.image}
                       alt={brand.name}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400";
+                      }}
                       className="object-cover w-full h-48"
                     />
                   </div>

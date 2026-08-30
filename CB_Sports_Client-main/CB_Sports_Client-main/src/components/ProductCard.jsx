@@ -35,8 +35,9 @@ const ProductCard = ({
           >
             <img
               className="object-cover w-full h-full transition-transform duration-500 ease-out hover:scale-105"
-              src={item?.images?.[0] || item?.image}
+              src={item?.image_url || (Array.isArray(item?.image) ? item?.image[0] : (item?.images?.[0] || item?.image))}
               alt={getText(item.name)}
+              loading="lazy"
             />
           </div>
 
@@ -86,8 +87,9 @@ const ProductCard = ({
       >
         <img
           className="object-cover w-full h-full aspect-[4/4] transition-transform duration-500 ease-out group-hover:scale-105"
-          src={item?.images?.[0] || item?.image}
+          src={item?.image_url || (Array.isArray(item?.image) ? item?.image[0] : (item?.images?.[0] || item?.image))}
           alt={getText(item.name)}
+          loading="lazy"
         />
 
         {/* Badges */}

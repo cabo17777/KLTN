@@ -55,8 +55,10 @@ const SpecialOffers = () => {
       setLoading(true);
       try {
         const data = await getData(endpoint);
-        // Handle the new API response format that includes success field
-        setProducts(data?.products || []);
+        const list = Array.isArray(data?.products)
+          ? data.products
+          : (data?.products ? Object.values(data.products) : []);
+        setProducts(list);
       } catch (error) {
         console.error("Error fetching products:", error);
         setProducts([]);

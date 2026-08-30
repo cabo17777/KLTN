@@ -7,7 +7,7 @@ const About = () => {
         <h1 className="text-4xl font-bold text-center">Giới thiệu</h1>
 
         <p className="text-lg text-gray-700">
-          Chào mừng bạn đến với <strong>HL_Sports</strong> – nơi cung cấp các
+          Chào mừng bạn đến với <strong>CB_Sports</strong> – nơi cung cấp các
           sản phẩm thể thao chất lượng cao, giúp bạn nâng cao hiệu suất và trải
           nghiệm tốt nhất.
         </p>
@@ -21,7 +21,7 @@ const About = () => {
         </div>
 
         <div className="space-y-6">
-          <h2 className="text-2xl font-semibold">Vì sao chọn HL_Sports?</h2>
+          <h2 className="text-2xl font-semibold">Vì sao chọn CB_Sports?</h2>
           <ul className="pl-6 space-y-2 text-gray-700 list-disc">
             <li className="text-lg">Sản phẩm chất lượng cao, chính hãng</li>
             <li className="text-lg">Dịch vụ giao hàng nhanh chóng, tiện lợi</li>
@@ -33,7 +33,7 @@ const About = () => {
         <div className="space-y-6">
           <h2 className="text-2xl font-semibold">Tầm nhìn của chúng tôi</h2>
           <p className="text-lg text-gray-700">
-            HL_Sports hướng đến trở thành thương hiệu thể thao hàng đầu Việt
+            CB_Sports hướng đến trở thành thương hiệu thể thao hàng đầu Việt
             Nam, nơi khách hàng luôn tìm thấy niềm tin và sự đồng hành trên con
             đường chinh phục thể thao.
           </p>
@@ -45,7 +45,7 @@ const About = () => {
           </h3>
           <p className="mb-4 text-gray-700">
             Hãy khám phá ngay bộ sưu tập sản phẩm thể thao và bắt đầu hành trình
-            của bạn cùng HL_Sports.
+            của bạn cùng CB_Sports.
           </p>
           <Link to={"/products"}>
             <button className="px-6 py-2 text-white transition duration-300 bg-slate-800 rounded-xl hover:bg-yellow-500">
