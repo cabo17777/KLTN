@@ -46,8 +46,8 @@ const SpecialOffers = () => {
   };
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const endpoint = "http://localhost:8000/products/?_type=offers";
-  const endpoint = `${config?.baseUrl}/api/products?_type=special_offers`;
+  const baseUrl = (config?.baseUrl && config.baseUrl !== "undefined" && !config.baseUrl.includes("localhost")) ? config.baseUrl : "https://cabo-sport.onrender.com";
+  const endpoint = `${baseUrl}/api/products?_type=special_offers`;
   console.log("Endpoint:", endpoint);
 
   useEffect(() => {

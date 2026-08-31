@@ -24,7 +24,8 @@ const Shop = () => {
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  const endpoint = `${config?.baseUrl}/api/products`;
+  const baseUrl = (config?.baseUrl && config.baseUrl !== "undefined" && !config.baseUrl.includes("localhost")) ? config.baseUrl : "https://cabo-sport.onrender.com";
+  const endpoint = `${baseUrl}/api/products`;
   console.log("Fetching products from:", endpoint);
 
   // Handle URL parameters for category filtering

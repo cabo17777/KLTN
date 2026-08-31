@@ -47,7 +47,8 @@ const BestSellers = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const endpoint = `${config?.baseUrl}/api/products?_type=best_sellers`;
+  const baseUrl = (config?.baseUrl && config.baseUrl !== "undefined" && !config.baseUrl.includes("localhost")) ? config.baseUrl : "https://cabo-sport.onrender.com";
+  const endpoint = `${baseUrl}/api/products?_type=best_sellers`;
 
   useEffect(() => {
     const getProducts = async () => {
