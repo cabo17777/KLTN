@@ -18,32 +18,47 @@ class ProductController extends Controller
         $brand = $request->query('brand', '');
         $search = $request->query('search', '');
 
-        $cacheKey = "products_list_{$type}_{$category}_{$brand}_{$search}";
+        $query = Product::query();
 
-        $products = Cache::remember($cacheKey, 60, function () use ($type, $category, $brand, $search) {
-            $query = Product::query();
+        if ($type === 'best_sellers' || $type === 'bestsellers') {
+            $query->where('bestseller', true);
+        } elseif ($type === 'new_arrivals') {
+            $query->orderBy('created_at', 'desc');
+        } elseif ($type === 'special_offers' || $type === 'on_sale') {
+            $query->whereNotNull('discount_price')->where('discount_price', '>', 0);
+        }
 
-            if ($type === 'best_sellers' || $type === 'bestsellers') {
-                $query->where('bestseller', true);
-            } elseif ($type === 'new_arrivals') {
-                $query->orderBy('created_at', 'desc');
-            } elseif ($type === 'special_offers' || $type === 'on_sale') {
-                $query->whereNotNull('discount_price')->where('discount_price', '>', 0);
+        if (!empty($category)) {
+            $query->where('category', $category);
+        }
+
+        if (!empty($brand)) {
+            $query->where('brand', $brand);
+        }
+
+        if (!empty($search)) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        $results = $query->get()->map(function ($product) {
+            $data = $product->toArray();
+            $data['_id'] = (string) $product->id;
+            $rawImg = $product->image;
+            $imgs = is_array($rawImg) ? array_values($rawImg) : ($rawImg ? [$rawImg] : []);
+            $validImgs = array_filter($imgs, function ($url) {
+                return !empty($url) && is_string($url) && !str_contains($url, 'placeholder');
+            });
+            if (empty($validImgs)) {
+                $validImgs = ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600'];
             }
+            $data['images'] = array_values($validImgs);
+            $data['image'] = $validImgs[0];
+            return $data;
+        });
 
-            if (!empty($category)) {
-                $query->where('category', $category);
-            }
-
-            if (!empty($brand)) {
-                $query->where('brand', $brand);
-            }
-
-            if (!empty($search)) {
-                $query->where('name', 'like', '%' . $search . '%');
-            }
-
-            $results = $query->get()->map(function ($product) {
+        // Fallback: Nếu không tìm thấy sản phẩm trùng bộ lọc, trả về tất cả sản phẩm
+        if ($results->isEmpty()) {
+            $results = Product::all()->map(function ($product) {
                 $data = $product->toArray();
                 $data['_id'] = (string) $product->id;
                 $rawImg = $product->image;
@@ -58,32 +73,11 @@ class ProductController extends Controller
                 $data['image'] = $validImgs[0];
                 return $data;
             });
-
-            // Fallback: Nếu không tìm thấy sản phẩm trùng bộ lọc, trả về tất cả sản phẩm
-            if ($results->isEmpty()) {
-                $results = Product::all()->map(function ($product) {
-                    $data = $product->toArray();
-                    $data['_id'] = (string) $product->id;
-                    $rawImg = $product->image;
-                    $imgs = is_array($rawImg) ? array_values($rawImg) : ($rawImg ? [$rawImg] : []);
-                    $validImgs = array_filter($imgs, function ($url) {
-                        return !empty($url) && is_string($url) && !str_contains($url, 'placeholder');
-                    });
-                    if (empty($validImgs)) {
-                        $validImgs = ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600'];
-                    }
-                    $data['images'] = array_values($validImgs);
-                    $data['image'] = $validImgs[0];
-                    return $data;
-                });
-            }
-
-            return $results->values()->all();
-        });
+        }
 
         return response()->json([
             'success' => true,
-            'products' => array_values($products)
+            'products' => $results->values()->all()
         ]);
     }
 

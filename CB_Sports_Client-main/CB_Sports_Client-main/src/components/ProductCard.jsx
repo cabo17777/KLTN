@@ -11,7 +11,7 @@ const ProductCard = ({
   className = "",
 }) => {
   const navigate = useNavigate();
-  const [setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleProductDetails = () => {
     navigate(`/product/${item?._id}`, { state: { item } });
