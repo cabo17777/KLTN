@@ -32,6 +32,15 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        User::updateOrCreate(
+            ['email' => '1@gmail.com'],
+            [
+                'name' => 'Tài khoản Test 1',
+                'password' => Hash::make('12345678'),
+                'role' => 'user',
+            ]
+        );
+
         // 2. Tạo Danh mục sản phẩm
         Category::updateOrCreate(['name' => 'Bóng đá'], ['slug' => 'bong-da', 'image' => 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400', 'description' => 'Giày đá bóng sân cỏ nhân tạo & tự nhiên']);
         Category::updateOrCreate(['name' => 'Bóng rổ'], ['slug' => 'bong-ro', 'image' => 'https://images.unsplash.com/photo-1579338559194-a162d19bf842?w=400', 'description' => 'Giày bóng rổ chuyên nghiệp']);

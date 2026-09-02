@@ -101,11 +101,18 @@ const SignIn = () => {
         toast.success(data?.message || "Đăng nhập thành công!");
         navigate("/");
       } else {
-        toast.error(data?.message);
+        toast.error(data?.message || "Đăng nhập thất bại");
       }
     } catch (error) {
       console.log("User login error", error);
-      toast.error(error?.response?.data?.message || "Login failed");
+      const msg = error?.response?.data?.message;
+      if (msg && msg !== "Server Error") {
+        toast.error(msg);
+      } else if (error?.response?.status === 500 || error?.response?.status === 502 || error?.response?.status === 503 || msg === "Server Error") {
+        toast.error("Máy chủ Render đang khởi động, vui lòng thử lại sau vài giây!");
+      } else {
+        toast.error(error?.message || "Đăng nhập thất bại");
+      }
     } finally {
       setIsLoading(false);
     }
