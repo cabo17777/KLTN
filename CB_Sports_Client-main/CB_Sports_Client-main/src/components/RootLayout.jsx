@@ -18,7 +18,7 @@ const RootLayout = () => {
         <div className="px-4 py-2 text-sm font-medium text-center text-white shadow-sm bg-gradient-to-r from-amber-500 to-orange-500">
           <div className="flex flex-wrap items-center justify-center gap-4">
             <span>📞 0909 123 456</span>
-            <span>📍 TP Huế, Việt Nam</span>
+            <span>📍 132A Sóng Hồng, Phú Bài, TP Huế</span>
             <a href="#">
               <span>✉️ support@yourshop.com</span>
             </a>

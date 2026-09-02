@@ -18,8 +18,8 @@ const Contact = () => {
             </p>
             <div className="space-y-2 text-center">
               <p>
-                <strong>📍 Địa chỉ:</strong> Hiền sỹ, phong sơn, phường phong
-                thái, Thành phố Huế
+                <strong>📍 Địa chỉ:</strong> 132A Sóng Hồng, Phường Phú Bài,
+                Thành phố Huế
               </p>
               <p>
                 <strong>📧 Email:</strong> support@cbsports.com
