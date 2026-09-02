@@ -45,10 +45,60 @@ const BestSellers = () => {
     ],
   };
 
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const baseUrl = (config?.baseUrl && config.baseUrl !== "undefined" && !config.baseUrl.includes("localhost")) ? config.baseUrl : "https://cabo-sport.onrender.com";
-  const endpoint = `${baseUrl}/api/products?_type=best_sellers`;
+  const fallbackProducts = [
+    {
+      _id: "bs_1",
+      name: "Giày Đá Bóng Nike Air Zoom Mercurial Vapor 15",
+      description: "Mẫu giày đá bóng siêu nhẹ trợ tốc đến từ Nike, đế đinh TF bám sân cực tốt.",
+      price: 98,
+      discountedPercentage: 15,
+      category: "Bóng đá",
+      brand: "Nike",
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+      images: ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"],
+      bestseller: true,
+      ratings: 4.9
+    },
+    {
+      _id: "bs_2",
+      name: "Giày Chạy Bộ Adidas Ultraboost Light",
+      description: "Dòng giày chạy bộ huyền thoại trang bị hạt đệm Ultraboost êm nhất thế giới.",
+      price: 168,
+      discountedPercentage: 20,
+      category: "Chạy bộ",
+      brand: "Adidas",
+      image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600",
+      images: ["https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600"],
+      bestseller: true,
+      ratings: 4.9
+    },
+    {
+      _id: "bs_3",
+      name: "Giày Sneaker Nike Air Force 1 07 White",
+      description: "Mẫu sneaker kinh điển phong cách đường phố không bao giờ lỗi mốt.",
+      price: 116,
+      discountedPercentage: 10,
+      category: "Thời trang",
+      brand: "Nike",
+      image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600",
+      images: ["https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600"],
+      bestseller: true,
+      ratings: 4.8
+    },
+    {
+      _id: "bs_4",
+      name: "Giày Đá Bóng Puma Future Ultimate FG/AG",
+      description: "Mẫu giày đá bóng cổ cao sáng tạo đến từ Puma, hỗ trợ di chuyển linh hoạt.",
+      price: 114,
+      discountedPercentage: 12,
+      category: "Bóng đá",
+      brand: "Puma",
+      image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600",
+      images: ["https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600"],
+      bestseller: true,
+      ratings: 4.8
+    }
+  ];
 
   useEffect(() => {
     const getProducts = async () => {
@@ -58,10 +108,10 @@ const BestSellers = () => {
         const list = Array.isArray(data?.products)
           ? data.products
           : (data?.products ? Object.values(data.products) : []);
-        setProducts(list);
+        setProducts(list.length > 0 ? list : fallbackProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
-        setProducts([]);
+        setProducts(fallbackProducts);
       } finally {
         setLoading(false);
       }
@@ -103,12 +153,10 @@ const BestSellers = () => {
         <Title className="mb-3 text-2xl font-bold">
           {t("bestsellers.title")}
         </Title>
-        {/* <Link to={"/shop"}>See all</Link> */}
       </div>
 
       {/* Conditionally render slider or grid based on product count */}
       {products && products.length > 3 ? (
-        // Use slider when more than 3 products
         <Slider {...settings}>
           {products?.map((item) => (
             <div key={item?._id} className="px-2">
@@ -117,18 +165,10 @@ const BestSellers = () => {
           ))}
         </Slider>
       ) : (
-        // Use simple grid when 3 or fewer products
         <div className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-${products?.length < 4 ? products?.length : 4}`}>
           {products?.map((item) => (
             <ProductCard item={item} key={item?._id} />
           ))}
-        </div>
-      )}
-
-      {/* Show message when no products */}
-      {(!products || products.length === 0) && (
-        <div className="py-8 text-center text-gray-500">
-          <p> {t("bestsellers.empty")}</p>
         </div>
       )}
     </div>

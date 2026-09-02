@@ -126,7 +126,7 @@ const Cart = () => {
       const data = await response.json();
       console.log("Add address response:", data);
       if (data.success) {
-        toast.success("Address added successfully!");
+        toast.success("Thêm địa chỉ thành công!");
         fetchAddresses();
         setShowAddressModal(false);
         setAddressForm({
@@ -140,11 +140,11 @@ const Cart = () => {
           isDefault: false,
         });
       } else {
-        toast.error(data.message || "Failed to add address");
+        toast.error(data.message || "Không thể thêm địa chỉ");
       }
     } catch (error) {
       console.error("Error adding address:", error);
-      toast.error("Failed to add address");
+      toast.error("Không thể thêm địa chỉ");
     } finally {
       setIsAddingAddress(false);
     }
@@ -158,7 +158,7 @@ const Cart = () => {
     }
 
     if (!selectedAddress) {
-      toast.error("Please select a delivery address");
+      toast.error("Vui lòng chọn địa chỉ giao hàng");
       return;
     }
 
@@ -605,8 +605,7 @@ const Cart = () => {
                               className="flex items-center justify-between w-full p-3 text-left transition-colors hover:bg-gray-50"
                             >
                               <span className="text-sm font-medium text-gray-700">
-                                {isAddressesExpanded ? "Hide" : "Show"} other
-                                addresses ({addresses.length - 1})
+                                {isAddressesExpanded ? "Ẩn" : "Xem"} các địa chỉ khác ({addresses.length - 1})
                               </span>
                               {isAddressesExpanded ? (
                                 <FaChevronUp className="w-4 h-4 text-gray-400" />
@@ -638,7 +637,7 @@ const Cart = () => {
                                             </span>
                                             {address.isDefault && (
                                               <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded">
-                                                Default
+                                                Mặc định
                                               </span>
                                             )}
                                           </div>
@@ -647,7 +646,7 @@ const Cart = () => {
                                             {address.state} {address.zipCode}
                                             {address.phone && (
                                               <span className="block">
-                                                Phone: {address.phone}
+                                                SĐT: {address.phone}
                                               </span>
                                             )}
                                           </p>
@@ -744,9 +743,9 @@ const Cart = () => {
                   className="w-full px-6 py-4 text-lg font-medium text-white transition-colors bg-gray-900 rounded-md hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {!userInfo ? (
-                    "Login to Place Order"
+                    "Đăng nhập để đặt hàng"
                   ) : !selectedAddress ? (
-                    "Select Address to Continue"
+                    "Chọn địa chỉ để tiếp tục"
                   ) : isPlacingOrder ? (
                     <div className="flex items-center justify-center gap-2">
                       <div className="w-4 h-4 border-2 border-white rounded-full border-t-transparent animate-spin" />
@@ -799,7 +798,7 @@ const Cart = () => {
           <div className="w-full max-w-md p-6 bg-white rounded-2xl">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-gray-900">
-                Add New Address
+                Thêm Địa Chỉ Mới
               </h3>
               <button
                 onClick={() => setShowAddressModal(false)}
@@ -812,7 +811,7 @@ const Cart = () => {
             <form onSubmit={handleAddAddress} className="space-y-4">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Address Label *
+                  Nhãn địa chỉ *
                 </label>
                 <div className="relative">
                   <select
@@ -823,7 +822,7 @@ const Cart = () => {
                     className="w-full px-3 py-2 pr-10 bg-white border border-gray-300 rounded-md appearance-none cursor-pointer focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   >
-                    <option value="">Select address type</option>
+                    <option value="">Chọn loại địa chỉ</option>
                     <option value="Home">{t("Cart.Homee")} </option>
                     <option value="Work">{t("Cart.Work")}</option>
                     <option value="Hometown">{t("Cart.Hometown")}</option>
@@ -848,7 +847,7 @@ const Cart = () => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Street Address *
+                  Địa chỉ cụ thể *
                 </label>
                 <input
                   type="text"
@@ -856,7 +855,7 @@ const Cart = () => {
                   onChange={(e) =>
                     setAddressForm({ ...addressForm, street: e.target.value })
                   }
-                  placeholder="House number and street name"
+                  placeholder="Số nhà, tên đường..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   required
                 />
@@ -865,7 +864,7 @@ const Cart = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    City *
+                    Tỉnh / Thành phố *
                   </label>
                   <input
                     type="text"
@@ -879,7 +878,7 @@ const Cart = () => {
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    State *
+                    Quận / Huyện *
                   </label>
                   <input
                     type="text"
@@ -896,7 +895,7 @@ const Cart = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    ZIP Code *
+                    Mã bưu chính *
                   </label>
                   <input
                     type="text"
@@ -913,7 +912,7 @@ const Cart = () => {
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Country *
+                    Quốc gia *
                   </label>
                   <input
                     type="text"
@@ -924,7 +923,7 @@ const Cart = () => {
                         country: e.target.value,
                       })
                     }
-                    placeholder="e.g., United States"
+                    placeholder="Ví dụ: Việt Nam"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   />
@@ -933,7 +932,7 @@ const Cart = () => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Phone Number
+                  Số điện thoại
                 </label>
                 <input
                   type="tel"
@@ -941,7 +940,7 @@ const Cart = () => {
                   onChange={(e) =>
                     setAddressForm({ ...addressForm, phone: e.target.value })
                   }
-                  placeholder="Optional"
+                  placeholder="Tùy chọn"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
@@ -963,7 +962,7 @@ const Cart = () => {
                   htmlFor="isDefault"
                   className="ml-2 text-sm text-gray-700"
                 >
-                  Set as default address
+                  Đặt làm địa chỉ mặc định
                 </label>
               </div>
 
@@ -973,14 +972,14 @@ const Cart = () => {
                   onClick={() => setShowAddressModal(false)}
                   className="flex-1 px-4 py-2 text-gray-700 transition-colors border border-gray-300 rounded-md hover:bg-gray-50"
                 >
-                  Cancel
+                  Hủy
                 </button>
                 <button
                   type="submit"
                   disabled={isAddingAddress}
                   className="flex-1 px-4 py-2 text-white transition-colors bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
                 >
-                  {isAddingAddress ? "Adding..." : "Add Address"}
+                  {isAddingAddress ? "Đang thêm..." : "Thêm Địa Chỉ"}
                 </button>
               </div>
             </form>

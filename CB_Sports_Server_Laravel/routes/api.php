@@ -19,6 +19,11 @@ Route::prefix('user')->group(function () {
     Route::post('/admin-login', [UserController::class, 'adminLogin']);
     Route::get('/addresses', [UserController::class, 'getAddresses']);
     Route::post('/addresses', [UserController::class, 'addAddress']);
+    Route::get('/{userId}/addresses', [UserController::class, 'getAddresses']);
+    Route::post('/{userId}/addresses', [UserController::class, 'addAddress']);
+    Route::put('/{userId}/addresses/{addressId}', [UserController::class, 'updateAddress']);
+    Route::delete('/{userId}/addresses/{addressId}', [UserController::class, 'deleteAddress']);
+    Route::put('/{userId}/addresses/{addressId}/default', [UserController::class, 'setDefaultAddress']);
     Route::get('/users', [UserController::class, 'getUsers']);
     Route::get('/list', [UserController::class, 'getUsers']);
     Route::get('/profile', [UserController::class, 'getProfile']);
@@ -122,3 +127,12 @@ Route::prefix('contact')->group(function () {
 Route::prefix('dashboard')->group(function () {
     Route::get('/stats', [DashboardController::class, 'getStats']);
 });
+
+// Global OPTIONS fallback handler for CORS preflight
+Route::options('{any}', function () {
+    return response('', 200)
+        ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin, X-CSRF-TOKEN, token')
+        ->header('Access-Control-Allow-Credentials', 'true');
+})->where('any', '.*');

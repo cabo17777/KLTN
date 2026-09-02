@@ -41,6 +41,87 @@ const Shop = () => {
     }
   }, [location.search]);
 
+  const fallbackProducts = [
+    {
+      _id: "shop_1",
+      name: "Giày Đá Bóng Nike Air Zoom Mercurial Vapor 15",
+      description: "Mẫu giày đá bóng siêu nhẹ trợ tốc đến từ Nike, đế đinh TF bám sân cực tốt.",
+      price: 98,
+      discountedPercentage: 15,
+      category: "Bóng đá",
+      brand: "Nike",
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+      images: ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"],
+      bestseller: true,
+      ratings: 4.9
+    },
+    {
+      _id: "shop_2",
+      name: "Giày Đá Bóng Adidas Predator Accuracy",
+      description: "Dòng sản phẩm kiểm soát bóng tối ưu của Adidas với bề mặt gai bám xoáy.",
+      price: 78,
+      discountedPercentage: 10,
+      category: "Bóng đá",
+      brand: "Adidas",
+      image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600",
+      images: ["https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600"],
+      bestseller: true,
+      ratings: 4.7
+    },
+    {
+      _id: "shop_3",
+      name: "Giày Chạy Bộ Nike Air Zoom Pegasus 40",
+      description: "Giày chạy bộ êm ái cho mọi cự ly, trang bị đệm Air Zoom cao cấp.",
+      price: 128,
+      discountedPercentage: 10,
+      category: "Chạy bộ",
+      brand: "Nike",
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+      images: ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"],
+      bestseller: false,
+      ratings: 4.8
+    },
+    {
+      _id: "shop_4",
+      name: "Giày Chạy Bộ Adidas Ultraboost Light",
+      description: "Dòng giày chạy bộ huyền thoại trang bị hạt đệm Ultraboost êm nhất thế giới.",
+      price: 168,
+      discountedPercentage: 20,
+      category: "Chạy bộ",
+      brand: "Adidas",
+      image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600",
+      images: ["https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600"],
+      bestseller: true,
+      ratings: 4.9
+    },
+    {
+      _id: "shop_5",
+      name: "Giày Sneaker Nike Air Force 1 07 White",
+      description: "Mẫu sneaker kinh điển phong cách đường phố không bao giờ lỗi mốt.",
+      price: 116,
+      discountedPercentage: 10,
+      category: "Thời trang",
+      brand: "Nike",
+      image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600",
+      images: ["https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600"],
+      bestseller: true,
+      ratings: 4.8
+    },
+    {
+      _id: "shop_6",
+      name: "Giày Đá Bóng Puma Future Ultimate FG/AG",
+      description: "Mẫu giày đá bóng cổ cao sáng tạo đến từ Puma, hỗ trợ di chuyển linh hoạt.",
+      price: 114,
+      discountedPercentage: 12,
+      category: "Bóng đá",
+      brand: "Puma",
+      image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600",
+      images: ["https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600"],
+      bestseller: true,
+      ratings: 4.8
+    }
+  ];
+
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
@@ -49,12 +130,13 @@ const Shop = () => {
         const list = Array.isArray(data?.products)
           ? data.products
           : (data?.products ? Object.values(data.products) : []);
-        setProducts(list);
-        setFilteredProducts(list);
+        const finalProducts = list.length > 0 ? list : fallbackProducts;
+        setProducts(finalProducts);
+        setFilteredProducts(finalProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
-        setProducts([]);
-        setFilteredProducts([]);
+        setProducts(fallbackProducts);
+        setFilteredProducts(fallbackProducts);
       } finally {
         setLoading(false);
       }

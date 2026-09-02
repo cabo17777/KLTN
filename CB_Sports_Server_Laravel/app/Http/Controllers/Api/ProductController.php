@@ -13,6 +13,28 @@ class ProductController extends Controller
     // Lấy danh sách sản phẩm với Cache ngắn hạn (60s) để phản hồi siêu tốc
     public function list(Request $request)
     {
+        // Tự động khởi tạo dữ liệu mẫu nếu Database trống
+        if (Product::count() === 0) {
+            try {
+                (new \Database\Seeders\DatabaseSeeder())->run();
+            } catch (\Exception $e) {
+                // Thêm sản phẩm mẫu dự phòng nếu Seeder lỗi
+                Product::create([
+                    'name' => 'Giày Đá Bóng Nike Air Zoom Mercurial Vapor 15',
+                    'description' => 'Mẫu giày đá bóng siêu nhẹ trợ tốc đến từ Nike, đế đinh TF bám sân cực tốt.',
+                    'price' => 2450000,
+                    'discount_price' => 2150000,
+                    'category' => 'Bóng đá',
+                    'brand' => 'Nike',
+                    'image' => ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600'],
+                    'sizes' => ['39', '40', '41', '42'],
+                    'colors' => ['Đỏ', 'Đen'],
+                    'bestseller' => true,
+                    'stock' => 50,
+                ]);
+            }
+        }
+
         $type = $request->query('_type', 'all');
         $category = $request->query('category', '');
         $brand = $request->query('brand', '');

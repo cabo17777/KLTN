@@ -7,6 +7,7 @@ import { getData } from "../helpers/index";
 import { serverUrl } from "../../config";
 import AddToCartButton from "../components/AddToCartButton";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const SingleProduct = () => {
   const { t } = useTranslation();
@@ -19,11 +20,15 @@ const SingleProduct = () => {
   const [isImageZoomed, setIsImageZoomed] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loadingRelated, setLoadingRelated] = useState(false);
-  const [selectedSize, setSelectedSize] = useState(null);
+
+  const cartProducts = useSelector((state) => state.orebiReducer.products);
+  const isInCart = cartProducts.some((p) => p?._id === productInfo?._id);
 
   useEffect(() => {
-    setProductInfo(location.state.item);
-  }, [location, productInfo]);
+    if (location.state?.item) {
+      setProductInfo(location.state.item);
+    }
+  }, [location]);
 
   // Fetch related products based on category
   useEffect(() => {
@@ -31,13 +36,11 @@ const SingleProduct = () => {
       if (productInfo?.category) {
         setLoadingRelated(true);
         try {
-          // Fetch products from the same category
           const response = await getData(
             `${serverUrl}/api/products?category=${productInfo.category}&_perPage=8`
           );
 
           if (response?.success && response?.products) {
-            // Filter out the current product and limit to 4 products
             const filtered = response.products
               .filter((product) => product._id !== productInfo._id)
               .slice(0, 4);
@@ -54,7 +57,6 @@ const SingleProduct = () => {
     fetchRelatedProducts();
   }, [productInfo]);
 
-  // Use product images from database if available, otherwise use mock images
   const productImages =
     productInfo?.images && productInfo.images.length > 0
       ? productInfo.images
@@ -63,7 +65,7 @@ const SingleProduct = () => {
           productInfo?.image,
           productInfo?.image,
           productInfo?.image,
-        ].filter((img) => img); // Filter out undefined images
+        ].filter((img) => img);
 
   const handleQuantityChange = (type) => {
     if (type === "increment") {
@@ -78,7 +80,12 @@ const SingleProduct = () => {
       <Container className="py-8">
         {/* Breadcrumbs */}
         <div className="flex items-center mb-8 space-x-2 text-sm text-gray-500">
-          <span className="cursor-pointer hover:text-gray-700">Home</span>
+          <span
+            className="cursor-pointer hover:text-gray-700"
+            onClick={() => navigate("/")}
+          >
+            Trang chủ
+          </span>
           <span>/</span>
           <span className="capitalize cursor-pointer hover:text-gray-700">
             {productInfo?.category}
@@ -116,7 +123,7 @@ const SingleProduct = () => {
               {!isImageZoomed && (
                 <div className="absolute inset-0 flex items-center justify-center transition-colors duration-300 bg-black/0 group-hover:bg-black/5">
                   <div className="px-3 py-1 text-sm font-medium transition-opacity duration-300 rounded-full opacity-0 group-hover:opacity-100 bg-white/90 backdrop-blur-sm">
-                    Click to zoom
+                    Bấm để phóng to
                   </div>
                 </div>
               )}
@@ -196,8 +203,8 @@ const SingleProduct = () => {
                 ))}
               </div>
               <span className="text-sm text-gray-600">
-                Rated {productInfo?.ratings?.toFixed(1) || "0.0"} out of 5 based
-                on {productInfo?.reviews?.length || 0} customer reviews
+                Đánh giá {productInfo?.ratings?.toFixed(1) || "0.0"}/5 từ{" "}
+                {productInfo?.reviews?.length || 0} nhận xét
               </span>
             </div>
 
@@ -208,61 +215,66 @@ const SingleProduct = () => {
 
             {/* Quantity & Add to Cart */}
             <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <label className="text-sm font-medium text-gray-900">
-                  Quantity:
-                </label>
-                <div className="flex items-center border border-gray-300 rounded-md">
-                  <button
-                    onClick={() => handleQuantityChange("decrement")}
-                    className="px-3 py-2 text-gray-600 transition-colors hover:text-gray-900"
-                  >
-                    −
-                  </button>
-                  <span className="px-4 py-2 border-x border-gray-300 min-w-[60px] text-center">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => handleQuantityChange("increment")}
-                    className="px-3 py-2 text-gray-600 transition-colors hover:text-gray-900"
-                  >
-                    +
-                  </button>
+              {!isInCart && (
+                <div className="flex items-center gap-4">
+                  <label className="text-sm font-medium text-gray-900">
+                    Số lượng:
+                  </label>
+                  <div className="flex items-center border border-gray-300 rounded-md">
+                    <button
+                      onClick={() => handleQuantityChange("decrement")}
+                      className="px-3 py-2 text-gray-600 transition-colors hover:text-gray-900"
+                    >
+                      −
+                    </button>
+                    <span className="px-4 py-2 border-x border-gray-300 min-w-[60px] text-center">
+                      {quantity}
+                    </span>
+                    <button
+                      onClick={() => handleQuantityChange("increment")}
+                      className="px-3 py-2 text-gray-600 transition-colors hover:text-gray-900"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <AddToCartButton item={{ ...productInfo }} />
+              <AddToCartButton
+                item={{ ...productInfo }}
+                quantity={quantity}
+              />
             </div>
 
             {/* Action Buttons */}
             <div className="flex items-center gap-4 pt-4 border-t border-gray-200">
               <button className="flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900">
                 <MdFavoriteBorder className="w-5 h-5" />
-                Add to Wishlist
+                Thêm vào yêu thích
               </button>
               <button className="flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900">
                 <MdShare className="w-5 h-5" />
-                Share
+                Chia sẻ
               </button>
             </div>
 
             {/* Product Meta */}
             <div className="pt-4 space-y-2 text-sm border-t border-gray-200">
               <p>
-                <span className="font-medium">SKU:</span>{" "}
+                <span className="font-medium">Mã SP:</span>{" "}
                 <span className="text-gray-600">
                   {productInfo?._id?.slice(-6) || "N/A"}
                 </span>
               </p>
               <p>
-                <span className="font-medium">Category:</span>{" "}
+                <span className="font-medium">Danh mục:</span>{" "}
                 <span className="text-gray-600 capitalize">
                   {productInfo?.category}
                 </span>
               </p>
               {productInfo?.tags && (
                 <p>
-                  <span className="font-medium">Tags:</span>{" "}
+                  <span className="font-medium">Thẻ:</span>{" "}
                   <span className="text-gray-600">{productInfo.tags}</span>
                 </p>
               )}
@@ -290,8 +302,8 @@ const SingleProduct = () => {
                 }`}
               >
                 {tab === "reviews"
-                  ? `Reviews (${productInfo?.reviews?.length || 0})`
-                  : tab}
+                  ? `Đánh giá (${productInfo?.reviews?.length || 0})`
+                  : "Mô tả sản phẩm"}
               </button>
             ))}
           </div>
@@ -300,16 +312,16 @@ const SingleProduct = () => {
           <div className="min-h-[200px]">
             {activeTab === "description" && (
               <div className="prose prose-lg max-w-none">
-                <h3 className="mb-4 text-2xl font-light">Description</h3>
+                <h3 className="mb-4 text-2xl font-light">Mô tả sản phẩm</h3>
                 <p className="leading-relaxed text-gray-600">
-                  {productInfo?.description || "No description available."}
+                  {productInfo?.description || "Chưa có mô tả cho sản phẩm này."}
                 </p>
               </div>
             )}
 
             {activeTab === "reviews" && (
               <div className="space-y-6">
-                <h3 className="mb-6 text-2xl font-light">Customer Reviews</h3>
+                <h3 className="mb-6 text-2xl font-light">Đánh giá từ khách hàng</h3>
                 {productInfo?.reviews?.length > 0 ? (
                   <div className="space-y-6">
                     {productInfo.reviews.map((review, index) => (
@@ -353,7 +365,7 @@ const SingleProduct = () => {
                   </div>
                 ) : (
                   <p className="text-gray-500">
-                    No reviews yet. Be the first to leave a review!
+                    Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá sản phẩm!
                   </p>
                 )}
               </div>

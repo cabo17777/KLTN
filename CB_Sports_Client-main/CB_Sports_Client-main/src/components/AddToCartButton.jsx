@@ -11,7 +11,7 @@ import {
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { cn } from "./ui/cn";
 
-const AddToCartButton = ({ item, className }) => {
+const AddToCartButton = ({ item, className, quantity = 1 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.orebiReducer);
@@ -25,8 +25,8 @@ const AddToCartButton = ({ item, className }) => {
   }, [products, item]);
 
   const handleAddToCart = () => {
-    dispatch(addToCart(item));
-    toast.success(`${item?.name.substring(0, 10)}... is added successfully!`);
+    dispatch(addToCart({ ...item, quantity: quantity || 1 }));
+    toast.success(`${item?.name?.substring(0, 15)}... đã được thêm vào giỏ hàng!`);
   };
 
   return (
@@ -42,7 +42,7 @@ const AddToCartButton = ({ item, className }) => {
             disabled={existingProduct?.quantity <= 1}
             onClick={() => {
               dispatch(decreaseQuantity(item?._id));
-              toast.success("Quantity decreased successfully!");
+              toast.success("Đã giảm số lượng!");
             }}
             className="p-2 text-sm text-gray-700 transition-all duration-200 border border-gray-300 rounded-md cursor-pointer hover:border-black hover:text-black disabled:text-gray-300 disabled:border-gray-200 disabled:hover:border-gray-200 disabled:hover:text-gray-300"
           >
@@ -54,7 +54,7 @@ const AddToCartButton = ({ item, className }) => {
           <button
             onClick={() => {
               dispatch(increaseQuantity(item?._id));
-              toast.success("Quantity increased successfully!");
+              toast.success("Đã tăng số lượng!");
             }}
             className="p-2 text-sm text-gray-700 transition-all duration-200 border border-gray-300 rounded-md cursor-pointer hover:border-black hover:text-black"
           >
@@ -79,6 +79,7 @@ AddToCartButton.propTypes = {
     name: PropTypes.string,
   }).isRequired,
   className: PropTypes.string,
+  quantity: PropTypes.number,
 };
 
 export default AddToCartButton;
