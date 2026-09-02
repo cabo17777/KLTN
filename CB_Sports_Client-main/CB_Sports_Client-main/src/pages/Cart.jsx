@@ -24,6 +24,7 @@ import {
   FaChevronUp,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { serverUrl } from "../config";
 
 const Cart = () => {
   const { t } = useTranslation();
@@ -78,8 +79,7 @@ const Cart = () => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("User not authenticated");
 
-      const baseUrl =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+      const baseUrl = serverUrl || "https://cabo-sport.onrender.com";
       const url = `${baseUrl}/api/user/addresses`;
 
       const response = await fetch(url, {
@@ -110,8 +110,7 @@ const Cart = () => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("User not authenticated");
 
-      const baseUrl =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+      const baseUrl = serverUrl || "https://cabo-sport.onrender.com";
       const url = `${baseUrl}/api/user/addresses`;
 
       const response = await fetch(url, {
@@ -126,7 +125,7 @@ const Cart = () => {
       const data = await response.json();
       console.log("Add address response:", data);
       if (data.success) {
-        toast.success("Address added successfully!");
+        toast.success(t("Cart.AddressAdded", "Thêm địa chỉ thành công!"));
         fetchAddresses();
         setShowAddressModal(false);
         setAddressForm({
@@ -140,11 +139,11 @@ const Cart = () => {
           isDefault: false,
         });
       } else {
-        toast.error(data.message || "Failed to add address");
+        toast.error(data.message || t("Cart.AddAddressFailed", "Thêm địa chỉ thất bại!"));
       }
     } catch (error) {
       console.error("Error adding address:", error);
-      toast.error("Failed to add address");
+      toast.error(t("Cart.AddAddressFailed", "Thêm địa chỉ thất bại!"));
     } finally {
       setIsAddingAddress(false);
     }
@@ -152,13 +151,13 @@ const Cart = () => {
 
   const handlePlaceOrder = async () => {
     if (!userInfo) {
-      toast.error("Vui lòng đăng nhập để thanh toán đơn hàng");
+      toast.error(t("Cart.PleaseLogin", "Vui lòng đăng nhập để thanh toán đơn hàng"));
       window.location.href = "/signin";
       return;
     }
 
     if (!selectedAddress) {
-      toast.error("Please select a delivery address");
+      toast.error(t("Cart.PleaseSelectAddress", "Vui lòng chọn địa chỉ giao hàng!"));
       return;
     }
 
@@ -167,8 +166,7 @@ const Cart = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const BASE_URL =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+      const BASE_URL = serverUrl || "https://cabo-sport.onrender.com";
 
       const response = await fetch(`${BASE_URL}/api/order/create`, {
         method: "POST",
@@ -189,7 +187,7 @@ const Cart = () => {
 
       const data = await response.json();
       if (data.success) {
-        toast.success("Order placed successfully!");
+        toast.success(t("Cart.OrderPlaced", "Đặt hàng thành công!"));
         dispatch(resetCart());
         // Update order count
         dispatch(setOrderCount(orderCount + 1));
@@ -198,11 +196,11 @@ const Cart = () => {
       } else {
         console.log("error", data);
 
-        toast.error(data.message || "Failed to place order");
+        toast.error(data.message || t("Cart.OrderFailed", "Đặt hàng thất bại!"));
       }
     } catch (error) {
       console.error("Error placing order:", error);
-      toast.error("Failed to place order");
+      toast.error(t("Cart.OrderFailed", "Đặt hàng thất bại!"));
     } finally {
       setIsPlacingOrder(false);
     }
@@ -744,16 +742,16 @@ const Cart = () => {
                   className="w-full px-6 py-4 text-lg font-medium text-white transition-colors bg-gray-900 rounded-md hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {!userInfo ? (
-                    "Login to Place Order"
+                    t("Cart.LoginToOrder", "Đăng Nhập Để Đặt Hàng")
                   ) : !selectedAddress ? (
-                    "Select Address to Continue"
+                    t("Cart.SelectAddress", "Chọn Địa Chỉ Để Tiếp Tục")
                   ) : isPlacingOrder ? (
                     <div className="flex items-center justify-center gap-2">
                       <div className="w-4 h-4 border-2 border-white rounded-full border-t-transparent animate-spin" />
-                      {t("Cart.Placing")}
+                      {t("Cart.Placing", "Đang Đặt Hàng...")}
                     </div>
                   ) : (
-                    t("Cart.Place")
+                    t("Cart.Place", "Đặt Hàng")
                   )}
                 </button>
 
@@ -777,15 +775,14 @@ const Cart = () => {
                 alt="Empty Cart"
               />
               <h2 className="mb-2 text-2xl font-bold text-gray-900">
-                Your cart is empty
+                {t("Cart.EmptyTitle", "Giỏ hàng của bạn đang trống")}
               </h2>
               <p className="mb-8 text-gray-600">
-                Looks like you haven&apos;t added any items to your cart yet.
-                Start shopping to fill it up!
+                {t("Cart.EmptySubtitle", "Có vẻ như bạn chưa thêm sản phẩm nào vào giỏ hàng. Bắt đầu mua sắm ngay!")}
               </p>
               <Link to="/shop">
                 <button className="px-8 py-3 font-medium text-white transition-colors bg-gray-900 rounded-md hover:bg-gray-800">
-                  Start Shopping
+                  {t("Cart.ContinueShopping", "Bắt Đầu Mua Sắm")}
                 </button>
               </Link>
             </div>
@@ -799,7 +796,7 @@ const Cart = () => {
           <div className="w-full max-w-md p-6 bg-white rounded-2xl">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-gray-900">
-                Add New Address
+                {t("Cart.AddNewAddress", "Thêm Địa Chỉ Mới")}
               </h3>
               <button
                 onClick={() => setShowAddressModal(false)}
@@ -812,7 +809,7 @@ const Cart = () => {
             <form onSubmit={handleAddAddress} className="space-y-4">
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Address Label *
+                  {t("Cart.AddressLabel", "Nhãn Địa Chỉ *")}
                 </label>
                 <div className="relative">
                   <select
@@ -823,10 +820,10 @@ const Cart = () => {
                     className="w-full px-3 py-2 pr-10 bg-white border border-gray-300 rounded-md appearance-none cursor-pointer focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   >
-                    <option value="">Select address type</option>
-                    <option value="Home">{t("Cart.Homee")} </option>
-                    <option value="Work">{t("Cart.Work")}</option>
-                    <option value="Hometown">{t("Cart.Hometown")}</option>
+                    <option value="">{t("Cart.SelectAddressType", "Chọn loại địa chỉ")}</option>
+                    <option value="Home">{t("Cart.Homee", "Nhà Riêng")} </option>
+                    <option value="Work">{t("Cart.Work", "Công Ty")}</option>
+                    <option value="Hometown">{t("Cart.Hometown", "Quê Nhà")}</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <svg
@@ -848,7 +845,7 @@ const Cart = () => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Street Address *
+                  {t("Cart.StreetAddress", "Địa Chỉ Nhà / Đường *")}
                 </label>
                 <input
                   type="text"
@@ -856,7 +853,7 @@ const Cart = () => {
                   onChange={(e) =>
                     setAddressForm({ ...addressForm, street: e.target.value })
                   }
-                  placeholder="House number and street name"
+                  placeholder={t("Cart.HouseNumberPlaceholder", "Số nhà và tên đường")}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   required
                 />
@@ -865,7 +862,7 @@ const Cart = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    City *
+                    {t("Cart.City", "Thành Phố / Quận *")}
                   </label>
                   <input
                     type="text"
@@ -879,7 +876,7 @@ const Cart = () => {
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    State *
+                    {t("Cart.State", "Tỉnh / Thành *")}
                   </label>
                   <input
                     type="text"
@@ -896,7 +893,7 @@ const Cart = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    ZIP Code *
+                    {t("Cart.ZipCode", "Mã Bưu Điện *")}
                   </label>
                   <input
                     type="text"
@@ -913,7 +910,7 @@ const Cart = () => {
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Country *
+                    {t("Cart.Country", "Quốc Gia *")}
                   </label>
                   <input
                     type="text"
@@ -924,7 +921,7 @@ const Cart = () => {
                         country: e.target.value,
                       })
                     }
-                    placeholder="e.g., United States"
+                    placeholder={t("Cart.CountryPlaceholder", "VD: Việt Nam")}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   />
@@ -933,7 +930,7 @@ const Cart = () => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Phone Number
+                  {t("Cart.PhoneNumber", "Số Điện Thoại")}
                 </label>
                 <input
                   type="tel"
@@ -941,7 +938,7 @@ const Cart = () => {
                   onChange={(e) =>
                     setAddressForm({ ...addressForm, phone: e.target.value })
                   }
-                  placeholder="Optional"
+                  placeholder={t("Cart.Optional", "Không bắt buộc")}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
@@ -963,7 +960,7 @@ const Cart = () => {
                   htmlFor="isDefault"
                   className="ml-2 text-sm text-gray-700"
                 >
-                  Set as default address
+                  {t("Cart.SetAsDefault", "Đặt làm địa chỉ mặc định")}
                 </label>
               </div>
 
@@ -973,14 +970,14 @@ const Cart = () => {
                   onClick={() => setShowAddressModal(false)}
                   className="flex-1 px-4 py-2 text-gray-700 transition-colors border border-gray-300 rounded-md hover:bg-gray-50"
                 >
-                  Cancel
+                  {t("Cart.Cancel", "Hủy")}
                 </button>
                 <button
                   type="submit"
                   disabled={isAddingAddress}
                   className="flex-1 px-4 py-2 text-white transition-colors bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
                 >
-                  {isAddingAddress ? "Adding..." : "Add Address"}
+                  {isAddingAddress ? t("Cart.Adding", "Đang thêm...") : t("Cart.AddAddressBtn", "Thêm Địa Chỉ")}
                 </button>
               </div>
             </form>

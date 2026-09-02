@@ -11,11 +11,12 @@ import {
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { cn } from "./ui/cn";
 
-const AddToCartButton = ({ item, className }) => {
+const AddToCartButton = ({ item, className, showQuantityControls = true, customQuantity = 1 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.orebiReducer);
   const [existingProduct, setExistingProduct] = useState(null);
+
   useEffect(() => {
     const availableItem = products.find(
       (product) => product?._id === item?._id
@@ -25,13 +26,13 @@ const AddToCartButton = ({ item, className }) => {
   }, [products, item]);
 
   const handleAddToCart = () => {
-    dispatch(addToCart(item));
-    toast.success(`${item?.name.substring(0, 10)}... is added successfully!`);
+    dispatch(addToCart({ ...item, quantity: customQuantity }));
+    toast.success(t("cart.itemAdded", { defaultValue: "Đã thêm sản phẩm vào giỏ hàng!" }));
   };
 
   return (
     <>
-      {existingProduct ? (
+      {showQuantityControls && existingProduct ? (
         <div
           className={cn(
             "flex self-start items-center justify-center gap-3 py-2",
@@ -42,7 +43,6 @@ const AddToCartButton = ({ item, className }) => {
             disabled={existingProduct?.quantity <= 1}
             onClick={() => {
               dispatch(decreaseQuantity(item?._id));
-              toast.success("Quantity decreased successfully!");
             }}
             className="p-2 text-sm text-gray-700 transition-all duration-200 border border-gray-300 rounded-md cursor-pointer hover:border-black hover:text-black disabled:text-gray-300 disabled:border-gray-200 disabled:hover:border-gray-200 disabled:hover:text-gray-300"
           >
@@ -54,7 +54,6 @@ const AddToCartButton = ({ item, className }) => {
           <button
             onClick={() => {
               dispatch(increaseQuantity(item?._id));
-              toast.success("Quantity increased successfully!");
             }}
             className="p-2 text-sm text-gray-700 transition-all duration-200 border border-gray-300 rounded-md cursor-pointer hover:border-black hover:text-black"
           >
@@ -64,9 +63,12 @@ const AddToCartButton = ({ item, className }) => {
       ) : (
         <button
           onClick={handleAddToCart}
-          className="w-full px-6 py-3 text-xs font-medium tracking-wide text-black uppercase transition-all duration-200 border border-black hover:bg-black hover:text-white"
+          className={cn(
+            "w-full px-6 py-3 text-xs font-medium tracking-wide text-black uppercase transition-all duration-200 border border-black hover:bg-black hover:text-white",
+            className
+          )}
         >
-          {t("Addtocabutton.button")}
+          {t("Addtocabutton.button", { defaultValue: "Thêm vào giỏ" })}
         </button>
       )}
     </>
@@ -79,6 +81,8 @@ AddToCartButton.propTypes = {
     name: PropTypes.string,
   }).isRequired,
   className: PropTypes.string,
+  showQuantityControls: PropTypes.bool,
+  customQuantity: PropTypes.number,
 };
 
 export default AddToCartButton;

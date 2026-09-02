@@ -16,6 +16,7 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { serverUrl } from "../config";
 
 const Checkout = () => {
   const { t } = useTranslation();
@@ -26,7 +27,7 @@ const Checkout = () => {
   const [paymentStep, setPaymentStep] = useState("selection"); // 'selection', 'stripe', 'processing'
 
   const fetchOrderDetails = useCallback(async () => {
-    const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+    const BASE_URL = serverUrl || "https://cabo-sport.onrender.com";
 
     try {
       const token = localStorage.getItem("token");

@@ -10,6 +10,7 @@ import {
 import { FaCreditCard, FaLock, FaSpinner } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { serverUrl } from "../config";
 // Initialize Stripe
 // Make sure to call `loadStripe` outside of a component's render to avoid
 // recreating the `Stripe` object on every render.
@@ -37,8 +38,7 @@ const CheckoutForm = ({ orderId, amount, onSuccess, onCancel }) => {
       if (!token) throw new Error("User not authenticated");
 
       // Lấy base URL từ biến môi trường Vite
-      const baseUrl =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+      const baseUrl = serverUrl || "https://cabo-sport.onrender.com";
       const url = `${baseUrl}/api/payment/stripe/create-payment-intent`;
 
       const response = await fetch(url, {

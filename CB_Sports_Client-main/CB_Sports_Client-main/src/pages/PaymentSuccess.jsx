@@ -15,25 +15,27 @@ import {
 } from "react-icons/fa";
 import toast from "react-hot-toast";
 
+import { serverUrl } from "../config";
+
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const orderId = searchParams.get("order_id");
-  const paymentIntentId = searchParams.get("payment_intent");
-
   useEffect(() => {
     const confirmPaymentAndFetchOrder = async () => {
-      if (!orderId || !paymentIntentId) {
+      const paymentIntentId = searchParams.get("payment_intent");
+      const clientSecret = searchParams.get("payment_intent_client_secret");
+      const orderId = searchParams.get("order_id");
+
+      if (!paymentIntentId || !clientSecret || !orderId) {
         toast.error("Invalid payment confirmation");
         navigate("/orders");
         return;
       }
 
-      const BASE_URL =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+      const BASE_URL = serverUrl || "https://cabo-sport.onrender.com";
 
       try {
         const token = localStorage.getItem("token");

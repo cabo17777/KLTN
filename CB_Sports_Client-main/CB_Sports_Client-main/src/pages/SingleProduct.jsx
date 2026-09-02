@@ -78,7 +78,7 @@ const SingleProduct = () => {
       <Container className="py-8">
         {/* Breadcrumbs */}
         <div className="flex items-center mb-8 space-x-2 text-sm text-gray-500">
-          <span className="cursor-pointer hover:text-gray-700">Home</span>
+          <span className="cursor-pointer hover:text-gray-700">{t("home", "Trang chủ")}</span>
           <span>/</span>
           <span className="capitalize cursor-pointer hover:text-gray-700">
             {productInfo?.category}
@@ -116,7 +116,7 @@ const SingleProduct = () => {
               {!isImageZoomed && (
                 <div className="absolute inset-0 flex items-center justify-center transition-colors duration-300 bg-black/0 group-hover:bg-black/5">
                   <div className="px-3 py-1 text-sm font-medium transition-opacity duration-300 rounded-full opacity-0 group-hover:opacity-100 bg-white/90 backdrop-blur-sm">
-                    Click to zoom
+                    {t("singleProduct.clickToZoom", "Bấm để phóng to")}
                   </div>
                 </div>
               )}
@@ -196,8 +196,7 @@ const SingleProduct = () => {
                 ))}
               </div>
               <span className="text-sm text-gray-600">
-                Rated {productInfo?.ratings?.toFixed(1) || "0.0"} out of 5 based
-                on {productInfo?.reviews?.length || 0} customer reviews
+                {t("singleProduct.rated", "Đánh giá")} {productInfo?.ratings?.toFixed(1) || "0.0"} / 5 ({productInfo?.reviews?.length || 0} {t("singleProduct.reviewsCount", "đánh giá")})
               </span>
             </div>
 
@@ -210,7 +209,7 @@ const SingleProduct = () => {
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <label className="text-sm font-medium text-gray-900">
-                  Quantity:
+                  {t("Cart.quantity", "Số Lượng:")}:
                 </label>
                 <div className="flex items-center border border-gray-300 rounded-md">
                   <button
@@ -231,38 +230,38 @@ const SingleProduct = () => {
                 </div>
               </div>
 
-              <AddToCartButton item={{ ...productInfo }} />
+              <AddToCartButton item={{ ...productInfo }} showQuantityControls={false} customQuantity={quantity} />
             </div>
 
             {/* Action Buttons */}
             <div className="flex items-center gap-4 pt-4 border-t border-gray-200">
               <button className="flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900">
                 <MdFavoriteBorder className="w-5 h-5" />
-                Add to Wishlist
+                {t("singleProduct.addToWishlist", "Thêm vào yêu thích")}
               </button>
               <button className="flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900">
                 <MdShare className="w-5 h-5" />
-                Share
+                {t("singleProduct.share", "Chia sẻ")}
               </button>
             </div>
 
             {/* Product Meta */}
             <div className="pt-4 space-y-2 text-sm border-t border-gray-200">
               <p>
-                <span className="font-medium">SKU:</span>{" "}
+                <span className="font-medium">{t("singleProduct.sku", "Mã SKU:")}</span>{" "}
                 <span className="text-gray-600">
                   {productInfo?._id?.slice(-6) || "N/A"}
                 </span>
               </p>
               <p>
-                <span className="font-medium">Category:</span>{" "}
+                <span className="font-medium">{t("singleProduct.category", "Danh mục:")}</span>{" "}
                 <span className="text-gray-600 capitalize">
                   {productInfo?.category}
                 </span>
               </p>
               {productInfo?.tags && (
                 <p>
-                  <span className="font-medium">Tags:</span>{" "}
+                  <span className="font-medium">{t("singleProduct.tags", "Thẻ:")}</span>{" "}
                   <span className="text-gray-600">{productInfo.tags}</span>
                 </p>
               )}
@@ -290,8 +289,8 @@ const SingleProduct = () => {
                 }`}
               >
                 {tab === "reviews"
-                  ? `Reviews (${productInfo?.reviews?.length || 0})`
-                  : tab}
+                  ? `${t("singleProduct.reviewsTab", "Đánh giá")} (${productInfo?.reviews?.length || 0})`
+                  : t("singleProduct.descriptionTab", "Mô tả")}
               </button>
             ))}
           </div>
@@ -300,16 +299,16 @@ const SingleProduct = () => {
           <div className="min-h-[200px]">
             {activeTab === "description" && (
               <div className="prose prose-lg max-w-none">
-                <h3 className="mb-4 text-2xl font-light">Description</h3>
+                <h3 className="mb-4 text-2xl font-light">{t("singleProduct.descriptionTitle", "Mô tả sản phẩm")}</h3>
                 <p className="leading-relaxed text-gray-600">
-                  {productInfo?.description || "No description available."}
+                  {productInfo?.description || t("singleProduct.noDescription", "Chưa có mô tả sản phẩm.")}
                 </p>
               </div>
             )}
 
             {activeTab === "reviews" && (
               <div className="space-y-6">
-                <h3 className="mb-6 text-2xl font-light">Customer Reviews</h3>
+                <h3 className="mb-6 text-2xl font-light">{t("singleProduct.reviewsTitle", "Đánh giá từ khách hàng")}</h3>
                 {productInfo?.reviews?.length > 0 ? (
                   <div className="space-y-6">
                     {productInfo.reviews.map((review, index) => (
@@ -353,7 +352,7 @@ const SingleProduct = () => {
                   </div>
                 ) : (
                   <p className="text-gray-500">
-                    No reviews yet. Be the first to leave a review!
+                    {t("singleProduct.noReviews", "Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá sản phẩm!")}
                   </p>
                 )}
               </div>

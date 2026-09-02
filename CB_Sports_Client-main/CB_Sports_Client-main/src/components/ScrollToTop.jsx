@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { FaFacebookF, FaYoutube, FaTiktok } from "react-icons/fa6";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { serverUrl } from "../config";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,8 +33,7 @@ const ScrollToTop = () => {
     setLoading(true);
 
     try {
-      const BACKEND_URL =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+      const BACKEND_URL = serverUrl || "https://cabo-sport.onrender.com";
 
       const res = await axios.post(`${BACKEND_URL}/api/chat`, {
         messages: newMessages,

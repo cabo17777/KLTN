@@ -22,17 +22,20 @@ import {
   FaShoppingCart,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { serverUrl } from "../config";
 
 const Order = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.orebiReducer.userInfo);
+  const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.orebiReducer);
   const cartProducts = useSelector((state) => state.orebiReducer.products);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [setIsPremiumModalOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
   const [confirmModal, setConfirmModal] = useState({
     isOpen: false,
     order: null,
@@ -43,8 +46,7 @@ const Order = () => {
   });
 
   const fetchUserOrders = useCallback(async () => {
-    const BASE_URL =
-      import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+    const BASE_URL = serverUrl || "https://cabo-sport.onrender.com";
 
     try {
       setLoading(true);
