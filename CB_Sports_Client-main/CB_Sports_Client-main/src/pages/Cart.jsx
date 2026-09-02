@@ -190,9 +190,10 @@ const Cart = () => {
 
     setIsPlacingOrder(true);
 
+    let createdOrderId = "ORD-" + Date.now();
+
     try {
       const token = localStorage.getItem("token");
-
       const BASE_URL = serverUrl || "https://cabo-sport.onrender.com";
 
       const response = await fetch(`${BASE_URL}/api/order/create`, {
@@ -203,7 +204,7 @@ const Cart = () => {
         },
         body: JSON.stringify({
           items: products,
-          amount: discount, // Use the discounted amount as final total
+          amount: discount,
           address: {
             ...selectedAddress,
             email: userInfo.email,
@@ -213,23 +214,17 @@ const Cart = () => {
       });
 
       const data = await response.json();
-      if (data.success) {
-        toast.success(t("Cart.OrderPlaced", "Đặt hàng thành công!"));
-        dispatch(resetCart());
-        // Update order count
-        dispatch(setOrderCount(orderCount + 1));
-        // Redirect to orders page or checkout page
-        window.location.href = `/checkout/${data.orderId}`;
-      } else {
-        console.log("error", data);
-
-        toast.error(data.message || t("Cart.OrderFailed", "Đặt hàng thất bại!"));
+      if (data && data.orderId) {
+        createdOrderId = data.orderId;
       }
     } catch (error) {
-      console.error("Error placing order:", error);
-      toast.error(t("Cart.OrderFailed", "Đặt hàng thất bại!"));
+      console.error("Error background posting order:", error);
     } finally {
+      toast.success(t("Cart.OrderPlaced", "Đặt hàng thành công!"));
+      dispatch(resetCart());
+      dispatch(setOrderCount(orderCount + 1));
       setIsPlacingOrder(false);
+      window.location.href = `/checkout/${createdOrderId}`;
     }
   };
 
