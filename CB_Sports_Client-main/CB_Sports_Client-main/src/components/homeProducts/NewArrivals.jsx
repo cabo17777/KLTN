@@ -45,6 +45,11 @@ const NewArrivals = () => {
     ],
   };
 
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const baseUrl = (config?.baseUrl && config.baseUrl !== "undefined" && !config.baseUrl.includes("localhost")) ? config.baseUrl : "https://cabo-sport.onrender.com";
+  const endpoint = `${baseUrl}/api/products?_type=new_arrivals`;
+
   // Fallback products if API is awakening or empty
   const fallbackProducts = [
     {
