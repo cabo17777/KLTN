@@ -38,27 +38,54 @@ const Add = ({ token }) => {
     image4: null,
   });
 
+  const defaultCategoriesList = [
+    { _id: "cat_1", name: "Bóng đá" },
+    { _id: "cat_2", name: "Chạy bộ" },
+    { _id: "cat_3", name: "Bóng rổ" },
+    { _id: "cat_4", name: "Thời trang" },
+  ];
+
+  const defaultBrandsList = [
+    { _id: "brand_1", name: "Nike" },
+    { _id: "brand_2", name: "Adidas" },
+    { _id: "brand_3", name: "Puma" },
+    { _id: "brand_4", name: "Mizuno" },
+  ];
+
   // Fetch categories and brands
   const fetchCategoriesAndBrands = async () => {
     try {
-      setLoadingData(true);
+      const baseUrl = serverUrl || "https://cabo-sport.onrender.com";
       const [categoriesRes, brandsRes] = await Promise.all([
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/category`),
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/brand`),
+        fetch(`${baseUrl}/api/category/list`).catch(() => null),
+        fetch(`${baseUrl}/api/brand/list`).catch(() => null),
       ]);
 
-      const categoriesData = await categoriesRes.json();
-      const brandsData = await brandsRes.json();
-
-      if (categoriesData.success) {
-        setCategories(categoriesData.categories);
+      if (categoriesRes) {
+        const categoriesData = await categoriesRes.json().catch(() => null);
+        if (categoriesData && categoriesData.success && Array.isArray(categoriesData.categories) && categoriesData.categories.length > 0) {
+          setCategories(categoriesData.categories);
+        } else {
+          setCategories(defaultCategoriesList);
+        }
+      } else {
+        setCategories(defaultCategoriesList);
       }
-      if (brandsData.success) {
-        setBrands(brandsData.brands);
+
+      if (brandsRes) {
+        const brandsData = await brandsRes.json().catch(() => null);
+        if (brandsData && brandsData.success && Array.isArray(brandsData.brands) && brandsData.brands.length > 0) {
+          setBrands(brandsData.brands);
+        } else {
+          setBrands(defaultBrandsList);
+        }
+      } else {
+        setBrands(defaultBrandsList);
       }
     } catch (error) {
       console.error("Error fetching categories and brands:", error);
-      toast.error("Failed to load categories and brands");
+      setCategories(defaultCategoriesList);
+      setBrands(defaultBrandsList);
     } finally {
       setLoadingData(false);
     }

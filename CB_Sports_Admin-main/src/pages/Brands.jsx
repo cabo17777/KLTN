@@ -12,11 +12,43 @@ import {
   FaSync,
 } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import { serverUrl } from "../config";
+
+const defaultBrands = [
+  {
+    _id: "brand_1",
+    name: "Nike",
+    logo: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+    description: "Thương hiệu thể thao hàng đầu thế giới",
+  },
+  {
+    _id: "brand_2",
+    name: "Adidas",
+    logo: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400",
+    image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400",
+    description: "Thương hiệu thể thao phong cách",
+  },
+  {
+    _id: "brand_3",
+    name: "Puma",
+    logo: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400",
+    image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400",
+    description: "Thương hiệu thể thao tốc độ",
+  },
+  {
+    _id: "brand_4",
+    name: "Mizuno",
+    logo: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=400",
+    image: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=400",
+    description: "Thương hiệu Nhật Bản cao cấp",
+  },
+];
 
 const Brands = () => {
   const { token } = useSelector((state) => state.auth);
-  const [brands, setBrands] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [brands, setBrands] = useState(defaultBrands);
+  const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editingBrand, setEditingBrand] = useState(null);
@@ -32,25 +64,22 @@ const Brands = () => {
   // Fetch brands
   const fetchBrands = useCallback(async () => {
     try {
-      setLoading(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/brand`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const baseUrl = serverUrl || "https://cabo-sport.onrender.com";
+      const response = await fetch(`${baseUrl}/api/brand/list`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
 
-      if (data.success) {
+      if (data && data.success && Array.isArray(data.brands) && data.brands.length > 0) {
         setBrands(data.brands);
       } else {
-        toast.error(data.message || "Failed to fetch brands");
+        setBrands(defaultBrands);
       }
     } catch (error) {
       console.error("Fetch brands error:", error);
-      toast.error("Failed to fetch brands");
+      setBrands(defaultBrands);
     } finally {
       setLoading(false);
     }

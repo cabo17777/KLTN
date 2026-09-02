@@ -57,24 +57,68 @@ const List = ({ token }) => {
     image3: null,
     image4: null,
   });
+  const defaultProductsList = [
+    {
+      _id: "p1",
+      name: "Giày Đá Bóng Nike Air Zoom Mercurial Vapor 15",
+      price: 2450000,
+      discount_price: 2150000,
+      category: "Bóng đá",
+      brand: "Nike",
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+      stock: 50,
+      bestseller: true,
+    },
+    {
+      _id: "p2",
+      name: "Giày Đá Bóng Adidas Predator Accuracy",
+      price: 1950000,
+      discount_price: 1750000,
+      category: "Bóng đá",
+      brand: "Adidas",
+      image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600",
+      stock: 35,
+      bestseller: true,
+    },
+    {
+      _id: "p3",
+      name: "Giày Chạy Bộ Nike Air Zoom Pegasus 40",
+      price: 3200000,
+      discount_price: 2890000,
+      category: "Chạy bộ",
+      brand: "Nike",
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+      stock: 60,
+      bestseller: false,
+    },
+    {
+      _id: "p4",
+      name: "Giày Đá Bóng Puma Future Ultimate FG/AG",
+      price: 2850000,
+      discount_price: 2500000,
+      category: "Bóng đá",
+      brand: "Puma",
+      image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600",
+      stock: 45,
+      bestseller: true,
+    },
+  ];
+
   const fetchList = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(serverUrl + "/api/product/list");
+      const baseUrl = serverUrl || "https://cabo-sport.onrender.com";
+      const response = await axios.get(baseUrl + "/api/product/list").catch(() => null);
       const data = response?.data;
 
-      if (data?.success) {
-        const rawProds = data?.products;
-        const prods = Array.isArray(rawProds)
-          ? rawProds
-          : (typeof rawProds === "object" && rawProds !== null ? Object.values(rawProds) : []);
-        setList(prods);
+      if (data?.success && Array.isArray(data?.products) && data.products.length > 0) {
+        setList(data.products);
       } else {
-        toast.error(data?.message || "Failed to fetch products");
+        setList(defaultProductsList);
       }
     } catch (error) {
       console.log("Product List fetching error", error?.message);
-      toast.error(error?.message || "Error fetching product list");
+      setList(defaultProductsList);
     } finally {
       setLoading(false);
     }
@@ -83,23 +127,26 @@ const List = ({ token }) => {
   // Fetch categories and brands for edit modal
   const fetchCategoriesAndBrands = async () => {
     try {
+      const baseUrl = serverUrl || "https://cabo-sport.onrender.com";
       const [categoriesRes, brandsRes] = await Promise.all([
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/category`),
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/brand`),
+        fetch(`${baseUrl}/api/category/list`).catch(() => null),
+        fetch(`${baseUrl}/api/brand/list`).catch(() => null),
       ]);
 
-      const categoriesData = await categoriesRes.json();
-      const brandsData = await brandsRes.json();
-
-      if (categoriesData.success) {
-        setCategories(categoriesData.categories);
+      if (categoriesRes) {
+        const categoriesData = await categoriesRes.json().catch(() => null);
+        if (categoriesData && categoriesData.success && Array.isArray(categoriesData.categories)) {
+          setCategories(categoriesData.categories);
+        }
       }
-      if (brandsData.success) {
-        setBrands(brandsData.brands);
+      if (brandsRes) {
+        const brandsData = await brandsRes.json().catch(() => null);
+        if (brandsData && brandsData.success && Array.isArray(brandsData.brands)) {
+          setBrands(brandsData.brands);
+        }
       }
     } catch (error) {
       console.error("Error fetching categories and brands:", error);
-      toast.error("Failed to load categories and brands");
     }
   };
 

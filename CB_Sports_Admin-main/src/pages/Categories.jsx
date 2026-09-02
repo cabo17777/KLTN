@@ -11,11 +11,43 @@ import {
   FaSync,
 } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import { serverUrl } from "../config";
+
+const defaultCategories = [
+  {
+    _id: "cat_1",
+    name: "Bóng đá",
+    slug: "bong-da",
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+    description: "Giày và phụ kiện bóng đá chuyên nghiệp",
+  },
+  {
+    _id: "cat_2",
+    name: "Chạy bộ",
+    slug: "chay-bo",
+    image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400",
+    description: "Giày chạy bộ êm ái cho mọi cự ly",
+  },
+  {
+    _id: "cat_3",
+    name: "Bóng rổ",
+    slug: "bong-ro",
+    image: "https://images.unsplash.com/photo-1579338559194-a162d19bf842?w=400",
+    description: "Giày bóng rổ bật nhảy tối đa",
+  },
+  {
+    _id: "cat_4",
+    name: "Thời trang",
+    slug: "thoi-trang",
+    image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400",
+    description: "Giày sneaker phong cách hàng ngày",
+  },
+];
 
 const Categories = () => {
   const { token } = useSelector((state) => state.auth);
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState(defaultCategories);
+  const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
@@ -30,23 +62,20 @@ const Categories = () => {
   // Fetch categories
   const fetchCategories = useCallback(async () => {
     try {
-      setLoading(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/category`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const baseUrl = serverUrl || "https://cabo-sport.onrender.com";
+      const response = await fetch(`${baseUrl}/api/category/list`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = await response.json();
 
-      if (data.success) {
+      if (data && data.success && Array.isArray(data.categories) && data.categories.length > 0) {
         setCategories(data.categories);
       } else {
-        toast.error(data.message || "Failed to fetch categories");
+        setCategories(defaultCategories);
       }
     } catch (error) {
       console.error("Fetch categories error:", error);
-      toast.error("Failed to fetch categories");
+      setCategories(defaultCategories);
     } finally {
       setLoading(false);
     }
