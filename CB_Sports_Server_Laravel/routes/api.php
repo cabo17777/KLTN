@@ -127,12 +127,3 @@ Route::prefix('contact')->group(function () {
 Route::prefix('dashboard')->group(function () {
     Route::get('/stats', [DashboardController::class, 'getStats']);
 });
-
-// Global OPTIONS fallback handler for CORS preflight
-Route::options('{any}', function () {
-    return response('', 200)
-        ->header('Access-Control-Allow-Origin', '*')
-        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
-        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin, X-CSRF-TOKEN, token')
-        ->header('Access-Control-Allow-Credentials', 'true');
-})->where('any', '.*');
