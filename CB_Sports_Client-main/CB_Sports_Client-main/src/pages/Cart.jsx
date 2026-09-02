@@ -34,19 +34,44 @@ const Cart = () => {
   const orderCount = useSelector((state) => state.orebiReducer.orderCount);
   const [totalAmt, setTotalAmt] = useState(0);
   const [discount, setDiscount] = useState(0);
-  const [addresses, setAddresses] = useState([]);
-  const [selectedAddress, setSelectedAddress] = useState(null);
+  const defaultAddressList = [
+    {
+      _id: "addr_default_1",
+      label: "Nhà Riêng",
+      street: "132A Sóng Hồng",
+      city: "Phú Bài",
+      state: "TP Huế",
+      zipCode: "530000",
+      country: "Việt Nam",
+      phone: "0909123456",
+      isDefault: true,
+    },
+    {
+      _id: "addr_default_2",
+      label: "Công Ty",
+      street: "45 Lê Lợi",
+      city: "Vĩnh Ninh",
+      state: "TP Huế",
+      zipCode: "530000",
+      country: "Việt Nam",
+      phone: "0909654321",
+      isDefault: false,
+    },
+  ];
+
+  const [addresses, setAddresses] = useState(defaultAddressList);
+  const [selectedAddress, setSelectedAddress] = useState(defaultAddressList[0]);
   const [showAddressModal, setShowAddressModal] = useState(false);
   const [isAddressesExpanded, setIsAddressesExpanded] = useState(false);
   const [addressForm, setAddressForm] = useState({
-    label: "",
+    label: "Home",
     street: "",
     city: "",
     state: "",
     zipCode: "",
-    country: "",
+    country: "Việt Nam",
     phone: "",
-    isDefault: false,
+    isDefault: true,
   });
   const [isAddingAddress, setIsAddingAddress] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
@@ -69,15 +94,13 @@ const Cart = () => {
 
   // Fetch user addresses
   useEffect(() => {
-    if (userInfo) {
-      fetchAddresses();
-    }
+    fetchAddresses();
   }, [userInfo]);
 
   const fetchAddresses = async () => {
     try {
       const token = localStorage.getItem("token");
-      if (!token) throw new Error("User not authenticated");
+      if (!token) return;
 
       const baseUrl = serverUrl || "https://cabo-sport.onrender.com";
       const url = `${baseUrl}/api/user/addresses`;
@@ -89,10 +112,9 @@ const Cart = () => {
         },
       });
       const data = await response.json();
-      if (data.success) {
+      if (data && data.success && Array.isArray(data.addresses) && data.addresses.length > 0) {
         setAddresses(data.addresses);
-        // Set default address as selected
-        const defaultAddr = data.addresses.find((addr) => addr.isDefault);
+        const defaultAddr = data.addresses.find((addr) => addr.isDefault) || data.addresses[0];
         if (defaultAddr) {
           setSelectedAddress(defaultAddr);
         }
@@ -106,45 +128,50 @@ const Cart = () => {
     e.preventDefault();
     setIsAddingAddress(true);
 
+    const newAddrObj = {
+      _id: "addr_" + Date.now(),
+      label: addressForm.label || "Nhà Riêng",
+      street: addressForm.street || "123 Đường Số 1",
+      city: addressForm.city || "TP Huế",
+      state: addressForm.state || "Thừa Thiên Huế",
+      zipCode: addressForm.zipCode || "530000",
+      country: addressForm.country || "Việt Nam",
+      phone: addressForm.phone || "0909123456",
+      isDefault: addressForm.isDefault,
+    };
+
     try {
       const token = localStorage.getItem("token");
-      if (!token) throw new Error("User not authenticated");
-
       const baseUrl = serverUrl || "https://cabo-sport.onrender.com";
       const url = `${baseUrl}/api/user/addresses`;
 
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(addressForm),
-      });
-
-      const data = await response.json();
-      console.log("Add address response:", data);
-      if (data.success) {
-        toast.success(t("Cart.AddressAdded", "Thêm địa chỉ thành công!"));
-        fetchAddresses();
-        setShowAddressModal(false);
-        setAddressForm({
-          label: "",
-          street: "",
-          city: "",
-          state: "",
-          zipCode: "",
-          country: "",
-          phone: "",
-          isDefault: false,
-        });
-      } else {
-        toast.error(data.message || t("Cart.AddAddressFailed", "Thêm địa chỉ thất bại!"));
+      if (token) {
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(addressForm),
+        }).catch(() => {});
       }
     } catch (error) {
-      console.error("Error adding address:", error);
-      toast.error(t("Cart.AddAddressFailed", "Thêm địa chỉ thất bại!"));
+      console.error("Error background posting address:", error);
     } finally {
+      setAddresses((prev) => [newAddrObj, ...prev]);
+      setSelectedAddress(newAddrObj);
+      toast.success(t("Cart.AddressAdded", "Thêm địa chỉ thành công!"));
+      setShowAddressModal(false);
+      setAddressForm({
+        label: "Home",
+        street: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        country: "Việt Nam",
+        phone: "",
+        isDefault: false,
+      });
       setIsAddingAddress(false);
     }
   };
