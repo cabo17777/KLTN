@@ -154,19 +154,14 @@ class UserController extends Controller
         ], 400);
     }
 
-    // Helper to get authenticated User ID from Bearer Token or Header or Route Param
-    private function getAuthUserId(Request $request, $routeUserId = null)
+    // Helper to get authenticated User ID from Bearer Token
+    private function getAuthUserId(Request $request)
     {
-        if ($routeUserId) {
-            $user = User::find($routeUserId);
-            if ($user) return $user->id;
-        }
-
         $user = $request->user();
         if ($user) return $user->id;
 
-        $tokenHeader = $request->header('Authorization') ?? $request->header('token') ?? $request->header('x-token') ?? $request->input('token');
-        if ($tokenHeader) {
+        $tokenHeader = $request->header('Authorization');
+        if ($tokenHeader && str_contains($tokenHeader, 'Bearer ')) {
             $tokenStr = str_replace('Bearer ', '', $tokenHeader);
             $pat = \Laravel\Sanctum\PersonalAccessToken::findToken($tokenStr);
             if ($pat) {
@@ -177,9 +172,9 @@ class UserController extends Controller
     }
 
     // Lấy danh sách địa chỉ giao hàng của User
-    public function getAddresses(Request $request, $routeUserId = null)
+    public function getAddresses(Request $request)
     {
-        $userId = $this->getAuthUserId($request, $routeUserId);
+        $userId = $this->getAuthUserId($request);
         if (!$userId) {
             return response()->json([
                 'success' => false,
@@ -225,9 +220,9 @@ class UserController extends Controller
     }
 
     // Thêm địa chỉ mới
-    public function addAddress(Request $request, $routeUserId = null)
+    public function addAddress(Request $request)
     {
-        $userId = $this->getAuthUserId($request, $routeUserId);
+        $userId = $this->getAuthUserId($request);
         if (!$userId) {
             return response()->json([
                 'success' => false,
@@ -277,80 +272,6 @@ class UserController extends Controller
             'message' => 'Thêm địa chỉ thành công',
             'addresses' => array_values($existingAddresses)
         ]);
-    }
-
-    // Cập nhật địa chỉ
-    public function updateAddress(Request $request, $routeUserId, $addressId)
-    {
-        $user = User::find($routeUserId);
-        if (!$user) {
-            return response()->json(['success' => false, 'message' => 'User not found'], 404);
-        }
-
-        $existingAddresses = is_array($user->address) ? $user->address : [];
-        $data = json_decode($request->getContent(), true) ?: $request->all();
-
-        $updated = false;
-        foreach ($existingAddresses as &$addr) {
-            if (($addr['_id'] ?? null) === $addressId) {
-                $addr['label'] = $data['label'] ?? $addr['label'];
-                $addr['street'] = $data['street'] ?? $addr['street'];
-                $addr['city'] = $data['city'] ?? $addr['city'];
-                $addr['state'] = $data['state'] ?? $addr['state'];
-                $addr['zipCode'] = $data['zipCode'] ?? $addr['zipCode'];
-                $addr['country'] = $data['country'] ?? $addr['country'];
-                $addr['phone'] = $data['phone'] ?? $addr['phone'];
-                if (isset($data['isDefault'])) {
-                    $addr['isDefault'] = filter_var($data['isDefault'], FILTER_VALIDATE_BOOLEAN);
-                }
-                $updated = true;
-                break;
-            }
-        }
-
-        if ($updated) {
-            $user->address = $existingAddresses;
-            $user->save();
-            return response()->json(['success' => true, 'message' => 'Cập nhật địa chỉ thành công', 'addresses' => array_values($existingAddresses)]);
-        }
-
-        return response()->json(['success' => false, 'message' => 'Không tìm thấy địa chỉ'], 404);
-    }
-
-    // Xóa địa chỉ
-    public function deleteAddress(Request $request, $routeUserId, $addressId)
-    {
-        $user = User::find($routeUserId);
-        if (!$user) {
-            return response()->json(['success' => false, 'message' => 'User not found'], 404);
-        }
-
-        $existingAddresses = is_array($user->address) ? $user->address : [];
-        $filtered = array_values(array_filter($existingAddresses, fn($a) => ($a['_id'] ?? null) !== $addressId));
-
-        $user->address = $filtered;
-        $user->save();
-
-        return response()->json(['success' => true, 'message' => 'Xóa địa chỉ thành công', 'addresses' => $filtered]);
-    }
-
-    // Đặt địa chỉ mặc định
-    public function setDefaultAddress(Request $request, $routeUserId, $addressId)
-    {
-        $user = User::find($routeUserId);
-        if (!$user) {
-            return response()->json(['success' => false, 'message' => 'User not found'], 404);
-        }
-
-        $existingAddresses = is_array($user->address) ? $user->address : [];
-        foreach ($existingAddresses as &$addr) {
-            $addr['isDefault'] = (($addr['_id'] ?? null) === $addressId);
-        }
-
-        $user->address = $existingAddresses;
-        $user->save();
-
-        return response()->json(['success' => true, 'message' => 'Đã đặt địa chỉ mặc định', 'addresses' => array_values($existingAddresses)]);
     }
 
     // Lấy thông tin cá nhân Profile của User

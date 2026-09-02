@@ -22,7 +22,10 @@ COPY CB_Sports_Server_Laravel/ .
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# Ensure sqlite database file & storage permissions exist
+RUN mkdir -p database storage bootstrap/cache && touch database/database.sqlite && chmod -R 777 database storage bootstrap/cache
+
 EXPOSE 10000
 
-# Run migrations, seeds, and start server
-CMD php artisan config:cache && php artisan route:cache && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=10000
+# Run migrations, seeds safely, and start server
+CMD touch database/database.sqlite && php artisan config:clear && php artisan config:cache && php artisan route:cache && (php artisan migrate --force || true) && (php artisan db:seed --force || true) && php artisan serve --host=0.0.0.0 --port=10000

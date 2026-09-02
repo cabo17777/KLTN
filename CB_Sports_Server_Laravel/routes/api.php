@@ -19,11 +19,6 @@ Route::prefix('user')->group(function () {
     Route::post('/admin-login', [UserController::class, 'adminLogin']);
     Route::get('/addresses', [UserController::class, 'getAddresses']);
     Route::post('/addresses', [UserController::class, 'addAddress']);
-    Route::get('/{userId}/addresses', [UserController::class, 'getAddresses']);
-    Route::post('/{userId}/addresses', [UserController::class, 'addAddress']);
-    Route::put('/{userId}/addresses/{addressId}', [UserController::class, 'updateAddress']);
-    Route::delete('/{userId}/addresses/{addressId}', [UserController::class, 'deleteAddress']);
-    Route::put('/{userId}/addresses/{addressId}/default', [UserController::class, 'setDefaultAddress']);
     Route::get('/users', [UserController::class, 'getUsers']);
     Route::get('/list', [UserController::class, 'getUsers']);
     Route::get('/profile', [UserController::class, 'getProfile']);

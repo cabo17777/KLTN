@@ -11,7 +11,7 @@ import {
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { cn } from "./ui/cn";
 
-const AddToCartButton = ({ item, className, quantity = 1 }) => {
+const AddToCartButton = ({ item, className }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.orebiReducer);
@@ -25,8 +25,8 @@ const AddToCartButton = ({ item, className, quantity = 1 }) => {
   }, [products, item]);
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ ...item, quantity: quantity || 1 }));
-    toast.success(`${item?.name?.substring(0, 15)}... đã được thêm vào giỏ hàng!`);
+    dispatch(addToCart(item));
+    toast.success(`${item?.name.substring(0, 10)}... is added successfully!`);
   };
 
   return (
@@ -42,7 +42,7 @@ const AddToCartButton = ({ item, className, quantity = 1 }) => {
             disabled={existingProduct?.quantity <= 1}
             onClick={() => {
               dispatch(decreaseQuantity(item?._id));
-              toast.success("Đã giảm số lượng!");
+              toast.success("Quantity decreased successfully!");
             }}
             className="p-2 text-sm text-gray-700 transition-all duration-200 border border-gray-300 rounded-md cursor-pointer hover:border-black hover:text-black disabled:text-gray-300 disabled:border-gray-200 disabled:hover:border-gray-200 disabled:hover:text-gray-300"
           >
@@ -54,7 +54,7 @@ const AddToCartButton = ({ item, className, quantity = 1 }) => {
           <button
             onClick={() => {
               dispatch(increaseQuantity(item?._id));
-              toast.success("Đã tăng số lượng!");
+              toast.success("Quantity increased successfully!");
             }}
             className="p-2 text-sm text-gray-700 transition-all duration-200 border border-gray-300 rounded-md cursor-pointer hover:border-black hover:text-black"
           >
@@ -79,7 +79,6 @@ AddToCartButton.propTypes = {
     name: PropTypes.string,
   }).isRequired,
   className: PropTypes.string,
-  quantity: PropTypes.number,
 };
 
 export default AddToCartButton;

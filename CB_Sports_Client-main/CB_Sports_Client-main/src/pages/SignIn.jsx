@@ -88,7 +88,7 @@ const SignIn = () => {
       const response = await axios.post(serverUrl + "/api/user/login", {
         email,
         password,
-      }, { timeout: 10000 });
+      });
       const data = response?.data;
       if (data?.success) {
         localStorage.setItem("token", data?.token);
@@ -96,15 +96,16 @@ const SignIn = () => {
           localStorage.setItem("user", JSON.stringify(data.user));
           dispatch(addUser(data.user));
         }
+        // Fetch order count after successful login
         await fetchUserOrderCount(data?.token);
         toast.success(data?.message || "Đăng nhập thành công!");
         navigate("/");
       } else {
-        toast.error(data?.message || "Đăng nhập thất bại");
+        toast.error(data?.message);
       }
     } catch (error) {
       console.log("User login error", error);
-      toast.error(error?.response?.data?.message || "Đăng nhập thất bại. Máy chủ Render đang khởi động lại, vui lòng thử lại sau vài giây!");
+      toast.error(error?.response?.data?.message || "Login failed");
     } finally {
       setIsLoading(false);
     }
@@ -242,7 +243,7 @@ const SignIn = () => {
                 {isLoading ? (
                   <div className="flex items-center gap-2">
                     <div className="w-5 h-5 border-2 border-white rounded-full border-t-transparent animate-spin" />
-                    {t("signin.signingIn") || "Đang đăng nhập..."}
+                    {t("signin.loading")}
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
